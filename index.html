@@ -3,772 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agadir Immobilier | Villas, Appartements et Résidences</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Noise - Experience Premium Sound</title>
+    
+    <!-- Scripts React, Tailwind et Framer Motion via CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/lucide-react"></script>
+
     <style>
-        :root {
-            --primary: #FF6B35;
-            --secondary: #1A535C;
-            --accent: #FFD166;
-            --dark: #073B4C;
-            --light: #F8F9FA;
-            --gray: #6C757D;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
         body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--dark);
-            background-color: var(--light);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
+        .text-outline {
+            -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.15);
+            color: transparent;
         }
 
-        /* Header et Navigation */
-        header {
-            background-color: rgba(255, 255, 255, 0.95);
+        .text-outline-white {
+            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.15);
+            color: transparent;
+        }
+
+        /* Animation de grain subtile */
+        .bg-grain {
             position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .logo i {
-            color: var(--secondary);
-            font-size: 2.2rem;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .cta-button {
-            background-color: var(--primary);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-        }
-
-        .cta-button:hover {
-            background-color: var(--secondary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(26, 83, 92, 0.3);
-        }
-
-        /* Hero Section avec animation 3D */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(7, 59, 76, 0.8), rgba(7, 59, 76, 0.9)), url('https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1925&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            padding-top: 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 20px;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
-
-        /* Animation 3D pour le logo Agadir */
-        .agadir-3d {
-            position: absolute;
-            bottom: 10%;
-            right: 10%;
-            width: 300px;
-            height: 200px;
-            perspective: 1000px;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .agadir-3d-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            animation: rotate 20s linear infinite;
-        }
-
-        .agadir-3d-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.8), rgba(255, 209, 102, 0.8));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
-            backface-visibility: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .agadir-3d-face.front {
-            transform: translateZ(100px);
-        }
-
-        .agadir-3d-face.back {
-            transform: rotateY(180deg) translateZ(100px);
-        }
-
-        .agadir-3d-face.right {
-            transform: rotateY(90deg) translateZ(150px);
-            width: 200px;
-            background: linear-gradient(135deg, rgba(26, 83, 92, 0.8), rgba(7, 59, 76, 0.8));
-        }
-
-        .agadir-3d-face.left {
-            transform: rotateY(-90deg) translateZ(150px);
-            width: 200px;
-            background: linear-gradient(135deg, rgba(26, 83, 92, 0.8), rgba(7, 59, 76, 0.8));
-        }
-
-        /* Sections */
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            font-size: 2.5rem;
-            color: var(--secondary);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--primary);
-        }
-
-        .section-padding {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Propriétés */
-        .properties-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .property-card {
-            background-color: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s ease;
-            position: relative;
-            transform-style: preserve-3d;
-            transform: perspective(1000px) rotateY(0deg);
-        }
-
-        .property-card:hover {
-            transform: perspective(1000px) rotateY(5deg) translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .property-image {
-            height: 220px;
-            width: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .property-card:hover .property-image {
-            transform: scale(1.05);
-        }
-
-        .property-info {
-            padding: 20px;
-        }
-
-        .property-type {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--dark);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .property-price {
-            color: var(--primary);
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 10px 0;
-        }
-
-        .property-location {
-            color: var(--gray);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Quartiers d'Agadir */
-        .neighborhoods {
-            background-color: #f8f9fa;
-        }
-
-        .neighborhood-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
-
-        .neighborhood-card {
-            background-color: white;
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .neighborhood-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .neighborhood-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            z-index: 2;
-        }
-
-        .neighborhood-icon {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, var(--secondary), var(--dark));
-            color: white;
-            text-align: center;
-            padding: 80px 20px;
-            border-radius: 20px;
-            margin: 80px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
-            animation: moveBackground 20s linear infinite;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .cta-section p {
-            max-width: 700px;
-            margin: 0 auto 30px;
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 60px 20px 30px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-column h3 {
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            color: var(--accent);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: #ddd;
-            text-decoration: none;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent);
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            background-color: var(--primary);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        @keyframes rotate {
-            0% {
-                transform: rotateY(0deg);
-            }
-            100% {
-                transform: rotateY(360deg);
-            }
-        }
-
-        @keyframes moveBackground {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            .agadir-3d {
-                width: 200px;
-                height: 150px;
-                right: 5%;
-            }
-            
-            .agadir-3d-face.front {
-                transform: translateZ(70px);
-            }
-            
-            .agadir-3d-face.back {
-                transform: rotateY(180deg) translateZ(70px);
-            }
-            
-            .agadir-3d-face.right, .agadir-3d-face.left {
-                transform: rotateY(±90deg) translateZ(100px);
-                width: 150px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            nav ul {
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .agadir-3d {
-                display: none;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .properties-grid {
-                grid-template-columns: 1fr;
-            }
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 50;
+            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <i class="fas fa-building"></i>
-                <span>Agadir Immobilier</span>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#accueil">Accueil</a></li>
-                    <li><a href="#proprietes">Propriétés</a></li>
-                    <li><a href="#quartiers">Quartiers</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <a href="#contact" class="cta-button">Contactez-nous</a>
-        </div>
-    </header>
+    <div id="root"></div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="accueil">
-        <div class="hero-content">
-            <h1>Découvrez l'Immobilier d'Exception à Agadir</h1>
-            <p>Villas de luxe, appartements avec vue sur l'océan, résidences sécurisées. Trouvez la propriété de vos rêves dans la perle du Sud marocain.</p>
-            <a href="#proprietes" class="cta-button">Explorer les biens</a>
-        </div>
-        
-        <!-- Animation 3D Agadir -->
-        <div class="agadir-3d">
-            <div class="agadir-3d-inner">
-                <div class="agadir-3d-face front">AGADIR</div>
-                <div class="agadir-3d-face back">MAROC</div>
-                <div class="agadir-3d-face right">VUE MER</div>
-                <div class="agadir-3d-face left">SOLEIL</div>
-            </div>
-        </div>
-    </section>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { motion, AnimatePresence } = FramerMotion;
 
-    <!-- Propriétés à vendre -->
-    <section class="section-padding" id="proprietes">
-        <h2 class="section-title">Nos Propriétés Phares</h2>
-        <div class="properties-grid">
-            <!-- Propriété 1 -->
-            <div class="property-card">
-                <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Villa moderne à Agadir" class="property-image">
-                <div class="property-info">
-                    <span class="property-type">Villa de Luxe</span>
-                    <h3>Villa Moderne avec Piscine</h3>
-                    <p class="property-location"><i class="fas fa-map-marker-alt"></i> Quartier Californie, Agadir</p>
-                    <p class="property-description">Magnifique villa contemporaine avec piscine à débordement, 5 chambres, vue panoramique sur l'océan.</p>
-                    <p class="property-price">6 500 000 MAD</p>
-                </div>
-            </div>
-            
-            <!-- Propriété 2 -->
-            <div class="property-card">
-                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Appartement avec vue mer" class="property-image">
-                <div class="property-info">
-                    <span class="property-type">Appartement</span>
-                    <h3>Duplex Vue Mer</h3>
-                    <p class="property-location"><i class="fas fa-map-marker-alt"></i> Front de Mer, Agadir</p>
-                    <p class="property-description">Superbe duplex entièrement rénové avec terrasse panoramique, 3 chambres, proche de la plage.</p>
-                    <p class="property-price">3 200 000 MAD</p>
-                </div>
-            </div>
-            
-            <!-- Propriété 3 -->
-            <div class="property-card">
-                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Résidence sécurisée" class="property-image">
-                <div class="property-info">
-                    <span class="property-type">Résidence</span>
-                    <h3>Résidence Sécurisée "Les Palmiers"</h3>
-                    <p class="property-location"><i class="fas fa-map-marker-alt"></i> Hay Salam, Agadir</p>
-                    <p class="property-description">Résidence de standing avec piscine, jardin, salle de sport et sécurité 24h/24. Appartements de 2 à 4 pièces.</p>
-                    <p class="property-price">À partir de 1 800 000 MAD</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quartiers d'Agadir -->
-    <section class="section-padding neighborhoods" id="quartiers">
-        <h2 class="section-title">Quartiers Privilégiés d'Agadir</h2>
-        <div class="neighborhood-container">
-            <div class="neighborhood-card">
-                <div class="neighborhood-icon">
-                    <i class="fas fa-umbrella-beach"></i>
-                </div>
-                <h3>Front de Mer</h3>
-                <p>Vue imprenable sur l'océan, à proximité de la plage, des restaurants et de la marina.</p>
-            </div>
-            
-            <div class="neighborhood-card">
-                <div class="neighborhood-icon">
-                    <i class="fas fa-tree"></i>
-                </div>
-                <h3>Quartier Californie</h3>
-                <p>Quartier résidentiel huppé avec villas luxueuses, calme et proche de la forêt d'eucalyptus.</p>
-            </div>
-            
-            <div class="neighborhood-card">
-                <div class="neighborhood-icon">
-                    <i class="fas fa-golf-ball"></i>
-                </div>
-                <h3>Golf de l'Ocean</h3>
-                <p>Autour du parcours de golf, villas et appartements de standing avec accès aux installations sportives.</p>
-            </div>
-            
-            <div class="neighborhood-card">
-                <div class="neighborhood-icon">
-                    <i class="fas fa-shopping-bag"></i>
-                </div>
-                <h3>Centre-Ville</h3>
-                <p>Au cœur de l'animation, à proximité des commerces, administrations et services.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section-padding">
-        <div class="cta-section">
-            <h2>Prêt à trouver votre propriété de rêve à Agadir ?</h2>
-            <p>Notre équipe d'experts locaux vous accompagne dans chaque étape de votre projet immobilier, de la recherche à l'achat.</p>
-            <a href="#contact" class="cta-button">Obtenir un conseil personnalisé</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-container">
-            <div class="footer-column">
-                <h3>Agadir Immobilier</h3>
-                <p>Votre partenaire de confiance pour l'immobilier à Agadir depuis 15 ans. Expertise locale et service personnalisé.</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Liens Rapides</h3>
-                <ul class="footer-links">
-                    <li><a href="#accueil"><i class="fas fa-chevron-right"></i> Accueil</a></li>
-                    <li><a href="#proprietes"><i class="fas fa-chevron-right"></i> Propriétés</a></li>
-                    <li><a href="#quartiers"><i class="fas fa-chevron-right"></i> Quartiers</a></li>
-                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Contactez-nous</h3>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Avenue Hassan II, Agadir 80000</a></li>
-                    <li><a href="tel:+212528843210"><i class="fas fa-phone"></i> +212 5 28 84 32 10</a></li>
-                    <li><a href="mailto:contact@agadir-immobilier.com"><i class="fas fa-envelope"></i> contact@agadir-immobilier.com</a></li>
-                    <li><a href="#"><i class="fas fa-clock"></i> Lundi - Vendredi: 9h - 18h</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="copyright">
-            <p>&copy; 2023 Agadir Immobilier. Tous droits réservés.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Animation du header au scroll
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
-                header.style.padding = '0';
-            } else {
-                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-                header.style.padding = '15px 0';
+        const themes = {
+            green: {
+                id: 'green',
+                bg: '#A8D5BA',
+                text: 'text-emerald-950',
+                accent: 'bg-emerald-950',
+                btnText: 'text-white',
+                img: 'https://p7.hiclipart.com/preview/442/1000/775/headphones-noise-cancelling-headphones-wireless-beats-electronics-headphones.jpg'
+            },
+            black: {
+                id: 'black',
+                bg: '#121212',
+                text: 'text-zinc-100',
+                accent: 'bg-white',
+                btnText: 'text-black',
+                img: 'https://p7.hiclipart.com/preview/411/334/772/beats-electronics-headphones-apple-beats-studio3-wireless-over-ear-headphones-apple.jpg'
+            },
+            white: {
+                id: 'white',
+                bg: '#f0f0f0',
+                text: 'text-zinc-900',
+                accent: 'bg-black',
+                btnText: 'text-white',
+                img: 'https://p7.hiclipart.com/preview/26/509/673/beats-electronics-headphones-wireless-apple-beats-solo3-headphones.jpg'
             }
-        });
+        };
 
-        // Animation au survol des cartes de propriétés
-        document.querySelectorAll('.property-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'perspective(1000px) rotateY(5deg) translateY(-10px)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'perspective(1000px) rotateY(0deg) translateY(0)';
-            });
-        });
+        function App() {
+            const [current, setCurrent] = useState(themes.green);
+            const { ShoppingBag, User, Play, Bluetooth, Battery, Droplets, Mic2, ArrowRight } = lucide;
 
-        // Animation douce pour les ancres
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+            return (
+                <div className="transition-colors duration-1000 ease-in-out min-h-screen relative" style={{ backgroundColor: current.bg }}>
+                    <div className="bg-grain"></div>
+
+                    {/* --- NAVBAR --- */}
+                    <nav className={`flex justify-between items-center px-10 py-8 relative z-50 font-bold uppercase text-[11px] tracking-widest ${current.text}`}>
+                        <div className="text-2xl lowercase font-black tracking-tighter">noise</div>
+                        <div className="hidden md:flex space-x-12 cursor-pointer">
+                            <span className="hover:opacity-50 transition-opacity">Product</span>
+                            <span className="hover:opacity-50 transition-opacity">Gift Store</span>
+                            <span className="hover:opacity-50 transition-opacity">Support</span>
+                            <span className="hover:opacity-50 transition-opacity">Blogs</span>
+                        </div>
+                        <div className="flex space-x-6 items-center">
+                            <User size={18} strokeWidth={2.5} className="cursor-pointer" />
+                            <div className="relative cursor-pointer">
+                                <ShoppingBag size={18} strokeWidth={2.5} />
+                                <span className={`absolute -top-1 -right-2 text-[8px] rounded-full w-4 h-4 flex items-center justify-center font-bold ${current.accent} ${current.btnText}`}>0</span>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* --- HERO SECTION --- */}
+                    <main className="relative flex flex-col items-center justify-center pt-10 px-6 min-h-[80vh]">
+                        
+                        {/* Grand texte d'arrière-plan */}
+                        <h1 className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-[900] pointer-events-none select-none z-0 tracking-tighter transition-all duration-1000 ${current.id === 'black' ? 'text-outline-white' : 'text-outline'}`}>
+                            NOISE
+                        </h1>
+
+                        <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-3 items-center z-10 relative">
+                            
+                            {/* Colonne Gauche */}
+                            <motion.div 
+                                initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}
+                                className={`space-y-20 ${current.text}`}
+                            >
+                                <div>
+                                    <p className="text-[10px] uppercase font-black tracking-[0.3em] mb-3 opacity-60">Quality</p>
+                                    <p className="text-base font-semibold leading-snug max-w-[200px]">50 hours of playtime. Hyper Sync. Quad Mic.</p>
+                                </div>
+
+                                <div>
+                                    <p className="text-[10px] uppercase font-black tracking-[0.3em] mb-4 opacity-60">Select Color</p>
+                                    <div className="flex space-x-4">
+                                        {Object.values(themes).map((t) => (
+                                            <button 
+                                                key={t.id}
+                                                onClick={() => setCurrent(t)}
+                                                className={`w-7 h-7 rounded-full border-2 transition-transform duration-300 hover:scale-110 ${current.id === t.id ? 'scale-125 border-current shadow-lg' : 'border-transparent opacity-50'}`}
+                                                style={{ backgroundColor: t.id === 'green' ? '#A8D5BA' : t.id }}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Colonne Centre (Image) */}
+                            <div className="relative flex justify-center py-10">
+                                <AnimatePresence mode="wait">
+                                    <motion.img 
+                                        key={current.id}
+                                        src={current.img}
+                                        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                                        animate={{ opacity: 1, scale: 1, y: [0, -25, 0] }}
+                                        exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                                        transition={{ 
+                                            y: { repeat: Infinity, duration: 5, ease: "easeInOut" },
+                                            opacity: { duration: 0.6 }
+                                        }}
+                                        className="w-[110%] md:w-[130%] max-w-lg z-20 drop-shadow-[0_50px_50px_rgba(0,0,0,0.25)]"
+                                    />
+                                </AnimatePresence>
+                            </div>
+
+                            {/* Colonne Droite */}
+                            <motion.div 
+                                initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }}
+                                className={`space-y-20 text-right flex flex-col items-end ${current.text}`}
+                            >
+                                <div>
+                                    <p className="text-[10px] uppercase font-black tracking-[0.3em] mb-3 opacity-60">Quad Mic</p>
+                                    <p className="text-base font-semibold leading-snug max-w-[200px]">Environmental noise cancellation.</p>
+                                </div>
+                                <div>
+                                    <p className="text-[10px] uppercase font-black tracking-[0.3em] mb-3 opacity-60">No Interrupt</p>
+                                    <p className="text-base font-semibold leading-snug max-w-[200px]">Continuous sound experience.</p>
+                                </div>
+                            </motion.div>
+                        </div>
+
+                        {/* CTA Buttons */}
+                        <div className="flex flex-col items-center mt-12 space-y-8 z-20">
+                            <motion.button 
+                                whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                                className={`px-12 py-4 rounded-full font-black uppercase tracking-[0.2em] text-[11px] shadow-2xl transition-all duration-500 ${current.accent} ${current.btnText}`}
+                            >
+                                Buy Now
+                            </motion.button>
+                            <button className={`flex items-center space-x-3 text-[11px] font-black uppercase tracking-widest ${current.text}`}>
+                                <div className={`p-3 rounded-full border-2 ${current.id === 'black' ? 'border-zinc-700' : 'border-black/10'}`}>
+                                    <Play size={14} fill="currentColor" />
+                                </div>
+                                <span>Play Video</span>
+                            </button>
+                        </div>
+                    </main>
+
+                    {/* --- FEATURES GRID --- */}
+                    <section className="py-40 px-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <FeatureCard icon={<Bluetooth size={32}/>} title="Version 5.3" desc="Seamless and fast connection." theme={current} />
+                        <FeatureCard icon={<Battery size={32}/>} title="50 Hours" desc="Keep the music going all day." theme={current} />
+                        <FeatureCard icon={<Mic2 size={32}/>} title="Quad Mic" desc="Clear calls anywhere." theme={current} />
+                        <FeatureCard icon={<Droplets size={32}/>} title="IPX5 Water" desc="Rain or sweat resistant." theme={current} />
+                    </section>
+
+                    <footer className={`py-12 text-center text-[10px] font-bold uppercase tracking-[0.5em] opacity-40 ${current.text}`}>
+                        © 2024 noise brand. all rights reserved.
+                    </footer>
+                </div>
+            );
+        }
+
+        function FeatureCard({ icon, title, desc, theme }) {
+            return (
+                <motion.div 
+                    whileHover={{ y: -10 }}
+                    className={`p-10 rounded-[40px] border transition-all duration-500 flex flex-col items-start ${theme.id === 'black' ? 'bg-white/5 border-white/10' : 'bg-black/5 border-black/5'} ${theme.text}`}
+                >
+                    <div className="mb-8 opacity-80">{icon}</div>
+                    <h4 className="text-xl font-black mb-3">{title}</h4>
+                    <p className="opacity-60 text-sm font-medium leading-relaxed">{desc}</p>
+                </motion.div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
