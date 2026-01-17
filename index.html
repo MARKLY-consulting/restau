@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Gourmet Parisien - Restaurant Gastronomique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D4AF37;
+            --accent-color: #2E8B57;
+            --light-color: #F5F5DC;
+            --dark-color: #321414;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
+
+        /* Animation de chargement et porte 3D */
+        .door-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 10000;
+            perspective: 1200px;
+            background-color: #000;
+        }
+
+        .door {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transform-style: preserve-3d;
+            transition: transform 1.5s ease-in-out;
+        }
+
+        .door-left, .door-right {
+            width: 50%;
+            height: 100%;
+            background-color: var(--primary-color);
+            position: relative;
+            transform-origin: center;
+            backface-visibility: hidden;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .door-left {
+            border-right: 1px solid #000;
+            transform-origin: left center;
+        }
+
+        .door-right {
+            transform-origin: right center;
+        }
+
+        .door-knob {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            top: 50%;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+        }
+
+        .door-left .door-knob {
+            right: 30px;
+        }
+
+        .door-right .door-knob {
+            left: 30px;
+        }
+
+        .door-sign {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            text-align: center;
+            width: 100%;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            font-family: 'Times New Roman', serif;
+            letter-spacing: 3px;
+        }
+
+        .door-sign small {
+            display: block;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            letter-spacing: 5px;
+        }
+
+        .enter-btn {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 2s forwards;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .enter-btn:hover {
+            background-color: #e6c34c;
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+        }
+
+        .door-container.hidden {
+            display: none;
+        }
+
+        .door.open .door-left {
+            transform: rotateY(-100deg);
+        }
+
+        .door.open .door-right {
+            transform: rotateY(100deg);
+        }
+
+        /* Contenu principal */
+        .main-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(50, 20, 20, 0.95);
+            padding: 15px 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .logo {
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+            font-weight: bold;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            left: 0;
+            bottom: -5px;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Section Hero */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            font-family: 'Times New Roman', serif;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e6c34c;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section Menu */
+        .menu {
+            background-color: var(--light-color);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        .menu-item.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .menu-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .menu-item-content {
+            padding: 25px;
+        }
+
+        .menu-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .menu-item p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .price {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* Section A propos */
+        .about {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            transform: rotateY(20deg);
+            transition: transform 0.8s ease;
+        }
+
+        .about-image.visible {
+            transform: rotateY(0);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Section Contact */
+        .contact {
+            background-color: var(--light-color);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--light-color);
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animation de la porte d'entrée -->
+    <div class="door-container" id="doorContainer">
+        <div class="door" id="door">
+            <div class="door-left">
+                <div class="door-knob"></div>
+            </div>
+            <div class="door-right">
+                <div class="door-knob"></div>
+            </div>
+            <div class="door-sign">
+                LE GOURMET PARISIEN
+                <small>RESTAURANT GASTRONOMIQUE</small>
+            </div>
+        </div>
+        <button class="enter-btn" id="enterBtn">Entrer</button>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="main-content" id="mainContent">
+        <!-- Navigation -->
+        <nav>
+            <div class="nav-container">
+                <div class="logo">Le Gourmet Parisien</div>
+                <ul class="nav-links">
+                    <li><a href="#hero">Accueil</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#about">À propos</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#reservation">Réservation</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Section Hero -->
+        <section class="hero" id="hero">
+            <div class="section-container">
+                <div class="hero-content">
+                    <h1>Le Gourmet Parisien</h1>
+                    <p>Découvrez une expérience culinaire exceptionnelle au cœur de Paris, où tradition et innovation se rencontrent pour éveiller vos sens.</p>
+                    <a href="#reservation" class="btn">Réserver une table</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Menu -->
+        <section class="menu" id="menu">
+            <div class="section-container">
+                <h2 class="section-title">Notre Menu</h2>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80" alt="Entrée">
+                        <div class="menu-item-content">
+                            <h3>Entrées Exquises</h3>
+                            <p>Foie gras de canard maison, toast brioché et chutney de figues. Soupe de cèpes et truffe noire.</p>
+                            <div class="price">À partir de 18€</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Plat principal">
+                        <div class="menu-item-content">
+                            <h3>Plats Principaux</h3>
+                            <p>Filet de bœuf Charolais, sauce au vin rouge et morilles. Bar de ligne rôti, légumes de saison et émulsion citronnée.</p>
+                            <div class="price">À partir de 32€</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Dessert">
+                        <div class="menu-item-content">
+                            <h3>Desserts Sublimes</h3>
+                            <p>Soufflé au chocolat grand cru, glace à la vanille de Madagascar. Tarte fine aux pommes caramélisées, sorbet calvados.</p>
+                            <div class="price">À partir de 12€</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section À propos -->
+        <section class="about" id="about">
+            <div class="section-container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2 class="section-title">Notre Histoire</h2>
+                        <p>Fondé en 1995 par le chef étoilé Pierre Moreau, Le Gourmet Parisien est devenu une référence de la gastronomie française contemporaine.</p>
+                        <p>Notre philosophie : réinterpréter les classiques de la cuisine française avec des produits frais, de saison et issus de producteurs locaux.</p>
+                        <p>Notre équipe de chefs passionnés crée chaque jour des plats uniques qui racontent une histoire et éveillent les sens.</p>
+                        <a href="#contact" class="btn">Nous contacter</a>
+                    </div>
+                    <div class="about-image" id="aboutImage">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Notre restaurant">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section class="contact" id="contact">
+            <div class="section-container">
+                <h2 class="section-title">Contact & Réservation</h2>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h3>Adresse</h3>
+                                <p>12 Rue de la Gastronomie, 75008 Paris</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h3>Téléphone</h3>
+                                <p>01 42 68 94 72</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h3>Email</h3>
+                                <p>contact@gourmetparisien.fr</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h3>Horaires</h3>
+                                <p>Lundi - Samedi : 12h-14h30 / 19h-22h30</p>
+                                <p>Dimanche : 19h-22h30</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form" id="reservation">
+                        <form id="reservationForm">
+                            <div class="form-group">
+                                <label for="name">Nom complet</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Téléphone</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="date" id="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="guests">Nombre de personnes</label>
+                                <input type="number" id="guests" min="1" max="12" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message supplémentaire</label>
+                                <textarea id="message" rows="4"></textarea>
+                            </div>
+                            <button type="submit" class="btn">Réserver</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="section-container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>Le Gourmet Parisien</h3>
+                        <p>Une expérience gastronomique unique au cœur de Paris, où l'art culinaire rencontre l'innovation.</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Liens rapides</h3>
+                        <ul>
+                            <li><a href="#hero">Accueil</a></li>
+                            <li><a href="#menu">Menu</a></li>
+                            <li><a href="#about">À propos</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Suivez-nous</h3>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2023 Le Gourmet Parisien. Tous droits réservés.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Animation de la porte d'entrée
+        document.addEventListener('DOMContentLoaded', function() {
+            const doorContainer = document.getElementById('doorContainer');
+            const door = document.getElementById('door');
+            const enterBtn = document.getElementById('enterBtn');
+            const mainContent = document.getElementById('mainContent');
+            
+            // Animation automatique de la porte après 1 seconde
+            setTimeout(() => {
+                door.classList.add('open');
+            }, 1000);
+            
+            // Bouton pour entrer sur le site
+            enterBtn.addEventListener('click', function() {
+                doorContainer.classList.add('hidden');
+                mainContent.classList.add('visible');
+                
+                // Faire défiler vers le haut pour être sûr que le contenu est visible
+                window.scrollTo(0, 0);
+            });
+            
+            // Si l'utilisateur clique sur la porte, cela fonctionne aussi
+            door.addEventListener('click', function() {
+                doorContainer.classList.add('hidden');
+                mainContent.classList.add('visible');
+                window.scrollTo(0, 0);
+            });
+            
+            // Animation des éléments du menu
+            const menuItems = document.querySelectorAll('.menu-item');
+            const aboutImage = document.getElementById('aboutImage');
+            
+            // Observer pour les animations au défilement
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.classList.contains('menu-item')) {
+                            entry.target.classList.add('visible');
+                        }
+                        if (entry.target.id === 'aboutImage') {
+                            entry.target.classList.add('visible');
+                        }
+                    }
+                });
+            }, observerOptions);
+            
+            // Observer chaque élément du menu
+            menuItems.forEach(item => {
+                observer.observe(item);
+            });
+            
+            // Observer l'image "about"
+            observer.observe(aboutImage);
+            
+            // Gestion du formulaire de réservation
+            const reservationForm = document.getElementById('reservationForm');
+            
+            reservationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Récupération des valeurs du formulaire
+                const name = document.getElementById('name').value;
+                const date = document.getElementById('date').value;
+                const guests = document.getElementById('guests').value;
+                
+                // Simulation d'envoi de réservation
+                alert(`Merci ${name} ! Votre réservation pour le ${date} pour ${guests} personne(s) a été envoyée. Nous vous confirmerons rapidement par téléphone.`);
+                
+                // Réinitialisation du formulaire
+                reservationForm.reset();
+            });
+            
+            // Navigation fluide
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    // Ne pas appliquer pour les liens dans la navigation pendant l'animation de la porte
+                    if (!doorContainer.classList.contains('hidden')) return;
+                    
+                    const targetId = this.getAttribute('href');
+                    
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Date minimum pour le formulaire de réservation (aujourd'hui)
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').min = today;
+        });
+    </script>
+</body>
+</html>
