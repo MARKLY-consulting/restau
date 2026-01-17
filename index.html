@@ -3,218 +3,447 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXON | Luxury Tech Artifacts</title>
+    <title>AXION | L'Excellence Absolue</title>
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP pour animations avancées -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Swiper pour carousel -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
         
-        body { 
-            font-family: 'Space Grotesk', sans-serif; 
-            margin: 0; 
-            overflow: hidden; 
-            background: #000;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        .outline-text {
-            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        .luxury-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        /* Effets de texte */
+        .text-outline-gold {
+            -webkit-text-stroke: 1px rgba(184, 158, 103, 0.15);
             color: transparent;
-            text-transform: uppercase;
         }
-
-        /* Effet de reflet sur l'objet */
-        .glass-reflection {
+        
+        .text-outline-light {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+            color: transparent;
+        }
+        
+        /* Animation de flottement */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(1deg); }
+            66% { transform: translateY(-10px) rotate(-1deg); }
+        }
+        
+        .floating {
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        /* Effet de brillance */
+        .glow-effect {
             position: relative;
         }
-        .glass-reflection::after {
+        
+        .glow-effect::after {
             content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 30%, rgba(184, 158, 103, 0.05) 70%, transparent 100%);
             pointer-events: none;
+            z-index: 2;
+        }
+        
+        /* Curseur personnalisé */
+        .custom-cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(184, 158, 103, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+        
+        .cursor-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background-color: rgba(184, 158, 103, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.05s ease;
+        }
+        
+        /* Scrollbar personnalisée */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(184, 158, 103, 0.5);
+            border-radius: 4px;
+        }
+        
+        /* Animation de chargement */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background-size: 1000px 100%;
+            animation: shimmer 3s infinite;
         }
     </style>
 </head>
 <body>
-    <div id="root"></div>
+    <!-- Curseur personnalisé -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-dot"></div>
 
-    <script type="text/babel">
-        const { useState } = React;
-        const { motion, AnimatePresence } = window.Motion;
+    <div id="app"></div>
 
-        const artifacts = [
+    <script>
+        // Animation du curseur
+        document.addEventListener('DOMContentLoaded', function() {
+            const cursor = document.querySelector('.custom-cursor');
+            const dot = document.querySelector('.cursor-dot');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                dot.style.left = e.clientX + 'px';
+                dot.style.top = e.clientY + 'px';
+            });
+            
+            // Effet au survol des éléments interactifs
+            const interactiveElements = document.querySelectorAll('button, a, [role="button"]');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'scale(1.5)';
+                    cursor.style.borderColor = 'rgba(184, 158, 103, 0.8)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'scale(1)';
+                    cursor.style.borderColor = 'rgba(184, 158, 103, 0.5)';
+                });
+            });
+        });
+        
+        // Données de la collection
+        const collection = [
             {
-                id: "PHANTOM",
-                name: "Aural-X1",
-                category: "Audio Artifact",
-                material: "Grade 5 Titanium",
-                price: "2.800 €",
-                specs: "Lossless / 60h Bat.",
-                bg: "#0D0D0D", // Obsidian
-                accent: "#C5A059", // Bronze
-                text: "text-white",
-                img: "https://images.unsplash.com/photo-1546435770-a3e426da473b?q=80&w=1200&auto=format"
+                id: 'CHRONO',
+                name: 'Heritage Gold 42',
+                category: 'Haute Horlogerie',
+                material: 'Or Rose 18K & Cuir Crocodile',
+                price: '24.500 €',
+                edition: 'Édition Limitée 01/50',
+                description: 'Montre automatique avec mouvement suisse, cadran guilloché main, réserve de marche de 72 heures.',
+                bg: '#0A0F0D',
+                accent: '#B89E67',
+                textColor: '#B89E67',
+                img: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1480&auto=format&fit=crop'
             },
             {
-                id: "CARBON",
-                name: "Vortex-V",
-                category: "Security Tool",
-                material: "Forged Carbon",
-                price: "950 €",
-                specs: "Biometric / RFID",
-                bg: "#F2F2F2", // Silk White
-                accent: "#000000",
-                text: "text-black",
-                img: "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=1200&auto=format"
+                id: 'VISION',
+                name: 'Aviator Black Onyx',
+                category: 'Lunettes de Créateur',
+                material: 'Titane Japonais & Verres Polarisés',
+                price: '1.250 €',
+                edition: 'Collection Automne 2024',
+                description: 'Lunettes de soleil avec verres polarisés, monture en titane ultraléger, protection UV 400.',
+                bg: '#F5F2ED',
+                accent: '#1A1A1A',
+                textColor: '#1A1A1A',
+                img: 'https://images.unsplash.com/photo-1511499767390-a73359580bc1?q=80&w=1480&auto=format&fit=crop'
             },
             {
-                id: "NEURAL",
-                name: "Optic-N",
-                category: "Visual Interface",
-                material: "Bio-Polymer",
-                price: "4.500 €",
-                specs: "AR 4K / Eye-Track",
-                bg: "#0A1128", // Deep Midnight
-                accent: "#00FFC2", // Cyber Neon
-                text: "text-white",
-                img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=1200&auto=format"
+                id: 'AURA',
+                name: 'Stellar Ring',
+                category: 'Joaillerie Fine',
+                material: 'Diamant VVS & Platine',
+                price: '18.900 €',
+                edition: 'Pièce Unique',
+                description: 'Bague en platine 950 avec diamant central de 1.5 carat VVS, sertissage griffe invisible.',
+                bg: '#121418',
+                accent: '#FFFFFF',
+                textColor: '#FFFFFF',
+                img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1480&auto=format&fit=crop'
+            },
+            {
+                id: 'ÉLÉGANCE',
+                name: 'Penna Fountain',
+                category: 'Écriture de Luxe',
+                material: 'Argent Sterling & Ébène',
+                price: '3.800 €',
+                edition: 'Série Artisanale',
+                description: 'Stylo plume en argent sterling massif, plume en or 18 carats, finition ébène poli miroir.',
+                bg: '#1C1B1A',
+                accent: '#D4AF37',
+                textColor: '#D4AF37',
+                img: 'https://images.unsplash.com/photo-1583484963886-cfe2bff2945f?q=80&w=1480&auto=format&fit=crop'
             }
         ];
-
-        function App() {
-            const [index, setIndex] = useState(0);
-            const item = artifacts[index];
-
-            const next = () => setIndex((index + 1) % artifacts.length);
-            const prev = () => setIndex((index - 1 + artifacts.length) % artifacts.length);
-
-            return (
-                <div className="transition-colors duration-1000 min-h-screen relative overflow-hidden" style={{ backgroundColor: item.bg }}>
-                    
-                    {/* Header Minimaliste */}
-                    <nav className={`flex justify-between items-center px-10 py-8 relative z-50 ${item.text}`}>
-                        <div className="text-xl font-black tracking-widest uppercase">AXON<span className="opacity-30">.STUDIO</span></div>
-                        <div className="flex space-x-8 text-[10px] font-bold tracking-[0.4em] uppercase cursor-pointer">
-                            <span className="hover:line-through">Archive</span>
-                            <span className="hover:line-through">Lab</span>
+        
+        // Initialisation de l'application
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentIndex = 0;
+            const app = document.getElementById('app');
+            
+            function render() {
+                const item = collection[currentIndex];
+                
+                app.innerHTML = `
+                    <!-- Navigation -->
+                    <nav class="fixed top-0 w-full z-50 px-8 py-6 flex justify-between items-center transition-all duration-700" 
+                         style="color: ${item.textColor}">
+                        <div class="luxury-font text-4xl italic font-semibold tracking-tight">AXION</div>
+                        
+                        <div class="hidden lg:flex space-x-12 text-sm font-light tracking-widest uppercase">
+                            <a href="#" class="hover:opacity-70 transition-opacity">Collections</a>
+                            <a href="#" class="hover:opacity-70 transition-opacity">Atelier</a>
+                            <a href="#" class="hover:opacity-70 transition-opacity">Héritage</a>
+                            <a href="#" class="hover:opacity-70 transition-opacity">Boutiques</a>
+                        </div>
+                        
+                        <div class="flex items-center space-x-8">
+                            <button class="p-2 hover:opacity-70 transition-opacity">
+                                <i class="fas fa-search text-lg"></i>
+                            </button>
+                            <button class="p-2 hover:opacity-70 transition-opacity">
+                                <i class="fas fa-user text-lg"></i>
+                            </button>
+                            <button class="p-2 relative hover:opacity-70 transition-opacity">
+                                <i class="fas fa-shopping-bag text-lg"></i>
+                                <span class="absolute -top-1 -right-1 w-5 h-5 bg-${item.accent.replace('#', '')} text-white rounded-full text-xs flex items-center justify-center">3</span>
+                            </button>
                         </div>
                     </nav>
-
-                    {/* background Giant Text */}
-                    <AnimatePresence mode="wait">
-                        <motion.div 
-                            key={item.id}
-                            initial={{ x: "100%", opacity: 0 }}
-                            animate={{ x: "-20%", opacity: 1 }}
-                            exit={{ x: "-100%", opacity: 0 }}
-                            transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
-                            className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap z-0 pointer-events-none"
-                        >
-                            <h2 className="text-[35vw] font-black outline-text leading-none">{item.id}</h2>
-                        </motion.div>
-                    </AnimatePresence>
-
-                    {/* --- INTERFACE INTELLIGENTE (COINS) --- */}
-                    <div className={`absolute inset-0 z-30 pointer-events-none p-16 ${item.text}`}>
+                    
+                    <!-- Main Content -->
+                    <main class="min-h-screen transition-all duration-1000 relative overflow-hidden" 
+                          style="background-color: ${item.bg}; color: ${item.textColor}">
                         
-                        {/* TOP LEFT */}
-                        <motion.div 
-                            key={index + "tl"}
-                            initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-                            className="absolute top-32 left-16"
-                        >
-                            <p className="text-[9px] font-bold tracking-[0.5em] opacity-30 mb-2 uppercase">Category</p>
-                            <p className="text-2xl font-light uppercase tracking-tighter">{item.category}</p>
-                        </motion.div>
-
-                        {/* TOP RIGHT */}
-                        <motion.div 
-                            key={index + "tr"}
-                            initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-                            className="absolute top-32 right-16 text-right"
-                        >
-                            <p className="text-[9px] font-bold tracking-[0.5em] opacity-30 mb-2 uppercase">Technical Specs</p>
-                            <p className="text-xl font-bold uppercase">{item.specs}</p>
-                        </motion.div>
-
-                        {/* BOTTOM LEFT */}
-                        <motion.div 
-                            key={index + "bl"}
-                            initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-                            className="absolute bottom-32 left-16"
-                        >
-                            <p className="text-[9px] font-bold tracking-[0.5em] opacity-30 mb-2 uppercase">Material</p>
-                            <p className="text-2xl font-light italic uppercase tracking-tighter">{item.material}</p>
-                        </motion.div>
-
-                        {/* BOTTOM RIGHT */}
-                        <motion.div 
-                            key={index + "br"}
-                            initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-                            className="absolute bottom-32 right-16 text-right"
-                        >
-                            <p className="text-[9px] font-bold tracking-[0.5em] opacity-30 mb-2 uppercase">Price / Acquisition</p>
-                            <p className="text-6xl font-black">{item.price}</p>
-                        </motion.div>
-                    </div>
-
-                    {/* --- OBJET CENTRAL --- */}
-                    <div className="relative z-20 w-full h-screen flex items-center justify-center">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, scale: 0.7, rotate: -10 }}
-                                animate={{ opacity: 1, scale: 1, rotate: 0, y: [0, -25, 0] }}
-                                exit={{ opacity: 0, scale: 1.3, rotate: 10 }}
-                                transition={{ 
-                                    y: { repeat: Infinity, duration: 5, ease: "easeInOut" },
-                                    duration: 0.8 
-                                }}
-                                className="w-[450px] h-[550px] glass-reflection rounded-[20px] overflow-hidden shadow-[0_60px_100px_-20px_rgba(0,0,0,0.6)] border border-white/5"
-                            >
-                                <img src={item.img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-
-                    {/* --- CONTROLES --- */}
-                    <div className="absolute bottom-10 left-0 w-full flex justify-between px-16 items-center z-50">
-                        <div className={`flex space-x-6 items-center ${item.text}`}>
-                            <button onClick={prev} className="w-12 h-12 flex items-center justify-center rounded-full border border-current opacity-20 hover:opacity-100 transition-all">
-                                ←
-                            </button>
-                            <span className="text-[10px] font-black tracking-widest">{index + 1} / {artifacts.length}</span>
-                            <button onClick={next} className="w-12 h-12 flex items-center justify-center rounded-full border border-current opacity-20 hover:opacity-100 transition-all">
-                                →
-                            </button>
+                        <!-- Background Text -->
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+                            <h1 class="text-[30vw] font-black opacity-5 luxury-font italic tracking-tighter"
+                                style="${item.bg === '#F5F2ED' ? '-webkit-text-stroke: 1px rgba(26, 26, 26, 0.1); color: transparent;' : '-webkit-text-stroke: 1px rgba(255, 255, 255, 0.05); color: transparent;'}">
+                                ${item.id}
+                            </h1>
                         </div>
-
-                        <motion.button 
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className={`px-12 py-5 rounded-full text-[10px] font-black uppercase tracking-[0.4em] shadow-2xl transition-all`}
-                            style={{ backgroundColor: item.accent, color: item.bg === '#F2F2F2' ? '#FFF' : '#000' }}
-                        >
-                            Acquire Artifact
-                        </motion.button>
-                    </div>
-
-                    {/* Lignes de Design Intelligentes */}
-                    <div className={`absolute inset-0 pointer-events-none opacity-10 ${item.bg === '#F2F2F2' ? 'bg-black' : 'bg-white'}`} style={{ maskImage: 'radial-gradient(circle, transparent 0%, black 100%)' }}>
-                        <div className="absolute top-0 left-1/2 w-px h-full bg-current"></div>
-                        <div className="absolute top-1/2 left-0 w-full h-px bg-current"></div>
-                    </div>
-                </div>
-            );
-        }
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+                        
+                        <!-- Product Display -->
+                        <div class="container mx-auto px-6 pt-32 pb-20 relative z-10">
+                            <div class="grid lg:grid-cols-2 gap-16 items-center min-h-[70vh]">
+                                
+                                <!-- Left Column - Product Info -->
+                                <div class="space-y-12">
+                                    <div class="space-y-6">
+                                        <div class="overflow-hidden">
+                                            <h2 class="text-5xl md:text-7xl luxury-font italic font-semibold leading-none" 
+                                                style="color: ${item.accent}">
+                                                ${item.name}
+                                            </h2>
+                                        </div>
+                                        
+                                        <div class="space-y-2">
+                                            <p class="text-sm font-light tracking-widest uppercase opacity-60">${item.category}</p>
+                                            <p class="text-xl luxury-font italic opacity-90">${item.description}</p>
+                                        </div>
+                                        
+                                        <div class="pt-8 space-y-6">
+                                            <div class="flex items-baseline space-x-4">
+                                                <span class="text-sm font-light tracking-widest uppercase opacity-60">Matière</span>
+                                                <span class="text-xl luxury-font">${item.material}</span>
+                                            </div>
+                                            <div class="flex items-baseline space-x-4">
+                                                <span class="text-sm font-light tracking-widest uppercase opacity-60">Édition</span>
+                                                <span class="text-lg">${item.edition}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Price & CTA -->
+                                    <div class="space-y-8">
+                                        <div class="flex items-baseline space-x-4">
+                                            <span class="text-sm font-light tracking-widest uppercase opacity-60">Valeur</span>
+                                            <span class="text-5xl luxury-font" style="color: ${item.accent}">${item.price}</span>
+                                        </div>
+                                        
+                                        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                                            <button class="px-12 py-4 rounded-full font-semibold tracking-widest uppercase text-sm transition-all duration-300 hover:scale-105 active:scale-95"
+                                                    style="background-color: ${item.accent}; color: ${item.bg}">
+                                                Acquérir cette pièce
+                                                <i class="fas fa-arrow-right ml-3"></i>
+                                            </button>
+                                            <button class="px-8 py-4 rounded-full border font-semibold tracking-widest uppercase text-sm transition-all duration-300 hover:scale-105 active:scale-95"
+                                                    style="border-color: ${item.accent}">
+                                                Configurer
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Right Column - Product Image -->
+                                <div class="relative">
+                                    <div class="relative h-[600px] rounded-[40px] overflow-hidden floating">
+                                        <img src="${item.img}" 
+                                             alt="${item.name}" 
+                                             class="w-full h-full object-cover transition-all duration-700 hover:scale-110">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                                    </div>
+                                    
+                                    <!-- Navigation Dots -->
+                                    <div class="flex justify-center space-x-3 mt-12">
+                                        ${collection.map((_, idx) => `
+                                            <button onclick="changeItem(${idx})" 
+                                                    class="w-3 h-3 rounded-full transition-all duration-300 ${idx === currentIndex ? 'w-10 bg-opacity-100' : 'bg-opacity-30'}"
+                                                    style="background-color: ${item.accent}">
+                                            </button>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Features Grid -->
+                            <div class="grid md:grid-cols-3 gap-8 mt-32 pt-16 border-t" style="border-color: ${item.accent}20">
+                                <div class="space-y-4">
+                                    <div class="w-12 h-12 rounded-full flex items-center justify-center mb-4" style="background-color: ${item.accent}20">
+                                        <i class="fas fa-gem" style="color: ${item.accent}"></i>
+                                    </div>
+                                    <h3 class="text-xl luxury-font">Authenticité Garantie</h3>
+                                    <p class="opacity-70">Chaque pièce est accompagnée d'un certificat d'authenticité et d'une garantie internationale.</p>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="w-12 h-12 rounded-full flex items-center justify-center mb-4" style="background-color: ${item.accent}20">
+                                        <i class="fas fa-shipping-fast" style="color: ${item.accent}"></i>
+                                    </div>
+                                    <h3 class="text-xl luxury-font">Livraison Exclusive</h3>
+                                    <p class="opacity-70">Service de livraison en main propre avec présentation personnalisée de votre acquisition.</p>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="w-12 h-12 rounded-full flex items-center justify-center mb-4" style="background-color: ${item.accent}20">
+                                        <i class="fas fa-headset" style="color: ${item.accent}"></i>
+                                    </div>
+                                    <h3 class="text-xl luxury-font">Conseil sur Mesure</h3>
+                                    <p class="opacity-70">Accompagnement personnalisé par nos experts pour choisir la pièce parfaite.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Decorative Elements -->
+                        <div class="absolute top-0 left-0 w-full h-px shimmer"></div>
+                        <div class="absolute top-1/4 left-10 w-px h-32 opacity-10" style="background: linear-gradient(to bottom, transparent, ${item.accent}, transparent);"></div>
+                        <div class="absolute bottom-1/4 right-10 w-px h-32 opacity-10" style="background: linear-gradient(to top, transparent, ${item.accent}, transparent);"></div>
+                    </main>
+                    
+                    <!-- Footer -->
+                    <footer class="py-12 px-6 text-center text-xs font-light tracking-widest uppercase opacity-40"
+                            style="background-color: ${item.bg}; color: ${item.textColor}">
+                        <div class="container mx-auto">
+                            <p>AXION &copy; 2024 - L'excellence au service de l'exception</p>
+                            <div class="flex justify-center space-x-8 mt-6">
+                                <a href="#" class="hover:opacity-70 transition-opacity">Mentions légales</a>
+                                <a href="#" class="hover:opacity-70 transition-opacity">Confidentialité</a>
+                                <a href="#" class="hover:opacity-70 transition-opacity">Conditions</a>
+                                <a href="#" class="hover:opacity-70 transition-opacity">Contact</a>
+                            </div>
+                        </div>
+                    </footer>
+                `;
+                
+                // Réinitialiser les animations du curseur
+                const interactiveElements = document.querySelectorAll('button, a, [role="button"]');
+                interactiveElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        document.querySelector('.custom-cursor').style.transform = 'scale(1.5)';
+                        document.querySelector('.custom-cursor').style.borderColor = item.accent + '80';
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        document.querySelector('.custom-cursor').style.transform = 'scale(1)';
+                        document.querySelector('.custom-cursor').style.borderColor = item.accent + '50';
+                    });
+                });
+            }
+            
+            // Exposer la fonction de changement au scope global
+            window.changeItem = function(newIndex) {
+                currentIndex = newIndex;
+                render();
+                
+                // Animation GSAP
+                if (typeof gsap !== 'undefined') {
+                    gsap.fromTo('#app', 
+                        { opacity: 0.8, y: 20 },
+                        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+                    );
+                }
+            };
+            
+            // Navigation au clavier
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    currentIndex = (currentIndex + 1) % collection.length;
+                    render();
+                } else if (e.key === 'ArrowLeft') {
+                    currentIndex = (currentIndex - 1 + collection.length) % collection.length;
+                    render();
+                }
+            });
+            
+            // Auto-rotation (optionnel)
+            let autoRotate = setInterval(() => {
+                currentIndex = (currentIndex + 1) % collection.length;
+                render();
+            }, 10000);
+            
+            // Arrêter l'auto-rotation au survol
+            app.addEventListener('mouseenter', () => clearInterval(autoRotate));
+            app.addEventListener('mouseleave', () => {
+                autoRotate = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % collection.length;
+                    render();
+                }, 10000);
+            });
+            
+            // Rendu initial
+            render();
+        });
     </script>
 </body>
 </html>
