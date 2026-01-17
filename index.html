@@ -3,23 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXION | L'Excellence Absolue</title>
+    <title>VitaPure | Santé & Bien-être Naturel</title>
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome pour les icônes -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- GSAP pour animations avancées -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Swiper pour carousel -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
+    <!-- AOS Library pour animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        :root {
+            --primary: #3A8B8C;
+            --secondary: #FF9F43;
+            --accent: #6C5CE7;
+            --light: #F8F9FA;
+            --dark: #2D3436;
+            --success: #00B894;
+            --gradient: linear-gradient(135deg, #3A8B8C 0%, #6C5CE7 100%);
+        }
         
         * {
             margin: 0;
@@ -28,421 +33,772 @@
         }
         
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
             overflow-x: hidden;
             cursor: none;
         }
         
-        .luxury-font {
-            font-family: 'Cormorant Garamond', serif;
-        }
-        
-        /* Effets de texte */
-        .text-outline-gold {
-            -webkit-text-stroke: 1px rgba(184, 158, 103, 0.15);
-            color: transparent;
-        }
-        
-        .text-outline-light {
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
-            color: transparent;
-        }
-        
-        /* Animation de flottement */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(1deg); }
-            66% { transform: translateY(-10px) rotate(-1deg); }
-        }
-        
-        .floating {
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        /* Effet de brillance */
-        .glow-effect {
-            position: relative;
-        }
-        
-        .glow-effect::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, transparent 30%, rgba(184, 158, 103, 0.05) 70%, transparent 100%);
-            pointer-events: none;
-            z-index: 2;
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
         }
         
         /* Curseur personnalisé */
         .custom-cursor {
             position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(184, 158, 103, 0.5);
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
+            background: rgba(58, 139, 140, 0.3);
             pointer-events: none;
             z-index: 9999;
+            transition: transform 0.2s ease;
             mix-blend-mode: difference;
-            transition: transform 0.1s ease;
         }
         
         .cursor-dot {
             position: fixed;
             width: 6px;
             height: 6px;
-            background-color: rgba(184, 158, 103, 0.8);
+            background: var(--primary);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.05s ease;
+            transition: transform 0.1s ease;
         }
         
-        /* Scrollbar personnalisée */
-        ::-webkit-scrollbar {
-            width: 8px;
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
         }
         
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.1);
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
         }
         
-        ::-webkit-scrollbar-thumb {
-            background: rgba(184, 158, 103, 0.5);
-            border-radius: 4px;
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        /* Animation de chargement */
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
         }
         
-        .shimmer {
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            background-size: 1000px 100%;
-            animation: shimmer 3s infinite;
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background: var(--gradient);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(58, 139, 140, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(58, 139, 140, 0.4);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(58, 139, 140, 0.1) 0%, rgba(108, 92, 231, 0.1) 100%);
+            clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero-text h1 {
+            font-size: 4rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+        
+        /* Animations de flottement */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Products Section */
+        .products {
+            padding: 100px 20px;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .products-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .product-image {
+            height: 200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+        
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .product-info {
+            padding: 30px;
+        }
+        
+        .product-category {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 15px 0;
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, rgba(58, 139, 140, 0.05) 0%, rgba(108, 92, 231, 0.05) 100%);
+        }
+        
+        .benefits-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .benefit-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 20px;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .testimonial {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            margin: 20px;
+            text-align: center;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 20px 30px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Curseur personnalisé -->
+    <!-- Curseurs personnalisés -->
     <div class="custom-cursor"></div>
     <div class="cursor-dot"></div>
 
-    <div id="app"></div>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-capsules"></i>
+                VitaPure
+            </div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#produits">Produits</a></li>
+                <li><a href="#bienfaits">Bienfaits</a></li>
+                <li><a href="#avis">Avis</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#produits" class="cta-button">
+                <i class="fas fa-shopping-cart"></i>
+                Acheter maintenant
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-text" data-aos="fade-right" data-aos-duration="1000">
+                <h1>Votre Santé, Notre Priorité</h1>
+                <p>Découvrez notre gamme de vitamines et suppléments 100% naturels, scientifiquement formulés pour optimiser votre bien-être quotidien.</p>
+                <a href="#produits" class="cta-button">
+                    Découvrir nos produits
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="hero-image" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?q=80&w=1374&auto=format&fit=crop" 
+                         alt="Vitamines" 
+                         style="max-width: 100%; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.1);"
+                         class="floating">
+                    <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 10px 30px rgba(255,159,67,0.3);">
+                        -30%
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="produits">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Nos Produits Phares</h2>
+            <p>Des formules avancées pour des résultats optimaux</p>
+        </div>
+        
+        <div class="products-grid">
+            <!-- Produit 1 -->
+            <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="product-badge">Bestseller</div>
+                <div class="product-image" style="background: linear-gradient(135deg, #E3F2FD 0%, #E8F5E9 100%);">
+                    <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=1374&auto=format&fit=crop" 
+                         alt="Multivitamines">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Multivitamines</span>
+                    <h3>Complexe Vitamine Ultra</h3>
+                    <p>Formule complète avec 25 vitamines et minéraux essentiels pour une santé optimale.</p>
+                    <div class="product-price">29,90€</div>
+                    <button class="cta-button" style="width: 100%; justify-content: center; margin-top: 15px;">
+                        <i class="fas fa-cart-plus"></i>
+                        Ajouter au panier
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Produit 2 -->
+            <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="product-badge" style="background: var(--accent);">Nouveau</div>
+                <div class="product-image" style="background: linear-gradient(135deg, #FFF3E0 0%, #FFEBEE 100%);">
+                    <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1374&auto=format&fit=crop" 
+                         alt="Vitamine D3">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Vitamine D</span>
+                    <h3>Vitamine D3 Boost</h3>
+                    <p>Haute concentration de vitamine D3 pour le système immunitaire et la santé osseuse.</p>
+                    <div class="product-price">24,90€</div>
+                    <button class="cta-button" style="width: 100%; justify-content: center; margin-top: 15px;">
+                        <i class="fas fa-cart-plus"></i>
+                        Ajouter au panier
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Produit 3 -->
+            <div class="product-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="product-badge" style="background: var(--success);">Populaire</div>
+                <div class="product-image" style="background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1374&auto=format&fit=crop" 
+                         alt="Oméga 3">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Oméga 3</span>
+                    <h3>Oméga 3 Pure</h3>
+                    <p>Acides gras essentiels purifiés pour la santé cardiaque et cognitive.</p>
+                    <div class="product-price">34,90€</div>
+                    <button class="cta-button" style="width: 100%; justify-content: center; margin-top: 15px;">
+                        <i class="fas fa-cart-plus"></i>
+                        Ajouter au panier
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="bienfaits">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Nos Engagements</h2>
+            <p>Pourquoi choisir VitaPure ?</p>
+        </div>
+        
+        <div class="benefits-grid">
+            <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="benefit-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>100% Naturel</h3>
+                <p>Ingrédients naturels et bio, sans additifs artificiels ni conservateurs.</p>
+            </div>
+            
+            <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="benefit-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <h3>Science Avancée</h3>
+                <p>Formules développées avec des experts en nutrition et santé.</p>
+            </div>
+            
+            <div class="benefit-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="benefit-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h3>Qualité Certifiée</h3>
+                <p>Produits testés en laboratoire et certifiés GMP.</p>
+            </div>
+            
+            <div class="benefit-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="benefit-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3>Livraison Rapide</h3>
+                <p>Expédition sous 24h et livraison gratuite dès 50€ d'achat.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="avis">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Témoignages</h2>
+            <p>Ce que nos clients disent de nous</p>
+        </div>
+        
+        <div class="testimonial-slider">
+            <div class="testimonial" data-aos="fade-up" data-aos-delay="100">
+                <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--gradient); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+                    <i class="fas fa-user"></i>
+                </div>
+                <p>"Après 3 mois de prise des multivitamines, j'ai retrouvé une énergie incroyable !"</p>
+                <div style="margin-top: 20px; color: var(--primary); font-weight: bold;">Marie L.</div>
+                <div style="color: var(--secondary);">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>VitaPure</h3>
+                <p>Votre partenaire santé pour une vie plus équilibrée et énergique.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Produits</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Multivitamines</a></li>
+                    <li><a href="#">Vitamine D</a></li>
+                    <li><a href="#">Oméga 3</a></li>
+                    <li><a href="#">Probiotiques</a></li>
+                    <li><a href="#">Protéines</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Rue de la Santé, Paris</li>
+                    <li><i class="fas fa-phone"></i> 01 23 45 67 89</li>
+                    <li><i class="fas fa-envelope"></i> contact@vitapure.com</li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Inscrivez-vous pour recevoir nos offres exclusives</p>
+                <div style="margin-top: 20px;">
+                    <input type="email" placeholder="Votre email" style="width: 100%; padding: 12px; border-radius: 5px; border: none; margin-bottom: 10px;">
+                    <button class="cta-button" style="width: 100%; justify-content: center;">S'abonner</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2024 VitaPure. Tous droits réservés.</p>
+        </div>
+    </footer>
 
     <script>
-        // Animation du curseur
-        document.addEventListener('DOMContentLoaded', function() {
-            const cursor = document.querySelector('.custom-cursor');
-            const dot = document.querySelector('.cursor-dot');
-            
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                dot.style.left = e.clientX + 'px';
-                dot.style.top = e.clientY + 'px';
+        // Initialiser AOS (Animate On Scroll)
+        AOS.init({
+            duration: 1000,
+            once: false,
+            offset: 100
+        });
+        
+        // Curseur personnalisé
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+        
+        // Effet au survol des éléments interactifs
+        const interactiveElements = document.querySelectorAll('button, a, .product-card, .benefit-card');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(1.5)';
+                cursor.style.background = 'rgba(58, 139, 140, 0.5)';
             });
-            
-            // Effet au survol des éléments interactifs
-            const interactiveElements = document.querySelectorAll('button, a, [role="button"]');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.style.transform = 'scale(1.5)';
-                    cursor.style.borderColor = 'rgba(184, 158, 103, 0.8)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursor.style.transform = 'scale(1)';
-                    cursor.style.borderColor = 'rgba(184, 158, 103, 0.5)';
-                });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.background = 'rgba(58, 139, 140, 0.3)';
             });
         });
         
-        // Données de la collection
-        const collection = [
-            {
-                id: 'CHRONO',
-                name: 'Heritage Gold 42',
-                category: 'Haute Horlogerie',
-                material: 'Or Rose 18K & Cuir Crocodile',
-                price: '24.500 €',
-                edition: 'Édition Limitée 01/50',
-                description: 'Montre automatique avec mouvement suisse, cadran guilloché main, réserve de marche de 72 heures.',
-                bg: '#0A0F0D',
-                accent: '#B89E67',
-                textColor: '#B89E67',
-                img: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1480&auto=format&fit=crop'
-            },
-            {
-                id: 'VISION',
-                name: 'Aviator Black Onyx',
-                category: 'Lunettes de Créateur',
-                material: 'Titane Japonais & Verres Polarisés',
-                price: '1.250 €',
-                edition: 'Collection Automne 2024',
-                description: 'Lunettes de soleil avec verres polarisés, monture en titane ultraléger, protection UV 400.',
-                bg: '#F5F2ED',
-                accent: '#1A1A1A',
-                textColor: '#1A1A1A',
-                img: 'https://images.unsplash.com/photo-1511499767390-a73359580bc1?q=80&w=1480&auto=format&fit=crop'
-            },
-            {
-                id: 'AURA',
-                name: 'Stellar Ring',
-                category: 'Joaillerie Fine',
-                material: 'Diamant VVS & Platine',
-                price: '18.900 €',
-                edition: 'Pièce Unique',
-                description: 'Bague en platine 950 avec diamant central de 1.5 carat VVS, sertissage griffe invisible.',
-                bg: '#121418',
-                accent: '#FFFFFF',
-                textColor: '#FFFFFF',
-                img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1480&auto=format&fit=crop'
-            },
-            {
-                id: 'ÉLÉGANCE',
-                name: 'Penna Fountain',
-                category: 'Écriture de Luxe',
-                material: 'Argent Sterling & Ébène',
-                price: '3.800 €',
-                edition: 'Série Artisanale',
-                description: 'Stylo plume en argent sterling massif, plume en or 18 carats, finition ébène poli miroir.',
-                bg: '#1C1B1A',
-                accent: '#D4AF37',
-                textColor: '#D4AF37',
-                img: 'https://images.unsplash.com/photo-1583484963886-cfe2bff2945f?q=80&w=1480&auto=format&fit=crop'
-            }
-        ];
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
         
-        // Initialisation de l'application
-        document.addEventListener('DOMContentLoaded', function() {
-            let currentIndex = 0;
-            const app = document.getElementById('app');
-            
-            function render() {
-                const item = collection[currentIndex];
-                
-                app.innerHTML = `
-                    <!-- Navigation -->
-                    <nav class="fixed top-0 w-full z-50 px-8 py-6 flex justify-between items-center transition-all duration-700" 
-                         style="color: ${item.textColor}">
-                        <div class="luxury-font text-4xl italic font-semibold tracking-tight">AXION</div>
-                        
-                        <div class="hidden lg:flex space-x-12 text-sm font-light tracking-widest uppercase">
-                            <a href="#" class="hover:opacity-70 transition-opacity">Collections</a>
-                            <a href="#" class="hover:opacity-70 transition-opacity">Atelier</a>
-                            <a href="#" class="hover:opacity-70 transition-opacity">Héritage</a>
-                            <a href="#" class="hover:opacity-70 transition-opacity">Boutiques</a>
-                        </div>
-                        
-                        <div class="flex items-center space-x-8">
-                            <button class="p-2 hover:opacity-70 transition-opacity">
-                                <i class="fas fa-search text-lg"></i>
-                            </button>
-                            <button class="p-2 hover:opacity-70 transition-opacity">
-                                <i class="fas fa-user text-lg"></i>
-                            </button>
-                            <button class="p-2 relative hover:opacity-70 transition-opacity">
-                                <i class="fas fa-shopping-bag text-lg"></i>
-                                <span class="absolute -top-1 -right-1 w-5 h-5 bg-${item.accent.replace('#', '')} text-white rounded-full text-xs flex items-center justify-center">3</span>
-                            </button>
-                        </div>
-                    </nav>
-                    
-                    <!-- Main Content -->
-                    <main class="min-h-screen transition-all duration-1000 relative overflow-hidden" 
-                          style="background-color: ${item.bg}; color: ${item.textColor}">
-                        
-                        <!-- Background Text -->
-                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-                            <h1 class="text-[30vw] font-black opacity-5 luxury-font italic tracking-tighter"
-                                style="${item.bg === '#F5F2ED' ? '-webkit-text-stroke: 1px rgba(26, 26, 26, 0.1); color: transparent;' : '-webkit-text-stroke: 1px rgba(255, 255, 255, 0.05); color: transparent;'}">
-                                ${item.id}
-                            </h1>
-                        </div>
-                        
-                        <!-- Product Display -->
-                        <div class="container mx-auto px-6 pt-32 pb-20 relative z-10">
-                            <div class="grid lg:grid-cols-2 gap-16 items-center min-h-[70vh]">
-                                
-                                <!-- Left Column - Product Info -->
-                                <div class="space-y-12">
-                                    <div class="space-y-6">
-                                        <div class="overflow-hidden">
-                                            <h2 class="text-5xl md:text-7xl luxury-font italic font-semibold leading-none" 
-                                                style="color: ${item.accent}">
-                                                ${item.name}
-                                            </h2>
-                                        </div>
-                                        
-                                        <div class="space-y-2">
-                                            <p class="text-sm font-light tracking-widest uppercase opacity-60">${item.category}</p>
-                                            <p class="text-xl luxury-font italic opacity-90">${item.description}</p>
-                                        </div>
-                                        
-                                        <div class="pt-8 space-y-6">
-                                            <div class="flex items-baseline space-x-4">
-                                                <span class="text-sm font-light tracking-widest uppercase opacity-60">Matière</span>
-                                                <span class="text-xl luxury-font">${item.material}</span>
-                                            </div>
-                                            <div class="flex items-baseline space-x-4">
-                                                <span class="text-sm font-light tracking-widest uppercase opacity-60">Édition</span>
-                                                <span class="text-lg">${item.edition}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Price & CTA -->
-                                    <div class="space-y-8">
-                                        <div class="flex items-baseline space-x-4">
-                                            <span class="text-sm font-light tracking-widest uppercase opacity-60">Valeur</span>
-                                            <span class="text-5xl luxury-font" style="color: ${item.accent}">${item.price}</span>
-                                        </div>
-                                        
-                                        <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                                            <button class="px-12 py-4 rounded-full font-semibold tracking-widest uppercase text-sm transition-all duration-300 hover:scale-105 active:scale-95"
-                                                    style="background-color: ${item.accent}; color: ${item.bg}">
-                                                Acquérir cette pièce
-                                                <i class="fas fa-arrow-right ml-3"></i>
-                                            </button>
-                                            <button class="px-8 py-4 rounded-full border font-semibold tracking-widest uppercase text-sm transition-all duration-300 hover:scale-105 active:scale-95"
-                                                    style="border-color: ${item.accent}">
-                                                Configurer
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Right Column - Product Image -->
-                                <div class="relative">
-                                    <div class="relative h-[600px] rounded-[40px] overflow-hidden floating">
-                                        <img src="${item.img}" 
-                                             alt="${item.name}" 
-                                             class="w-full h-full object-cover transition-all duration-700 hover:scale-110">
-                                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                                    </div>
-                                    
-                                    <!-- Navigation Dots -->
-                                    <div class="flex justify-center space-x-3 mt-12">
-                                        ${collection.map((_, idx) => `
-                                            <button onclick="changeItem(${idx})" 
-                                                    class="w-3 h-3 rounded-full transition-all duration-300 ${idx === currentIndex ? 'w-10 bg-opacity-100' : 'bg-opacity-30'}"
-                                                    style="background-color: ${item.accent}">
-                                            </button>
-                                        `).join('')}
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Features Grid -->
-                            <div class="grid md:grid-cols-3 gap-8 mt-32 pt-16 border-t" style="border-color: ${item.accent}20">
-                                <div class="space-y-4">
-                                    <div class="w-12 h-12 rounded-full flex items-center justify-center mb-4" style="background-color: ${item.accent}20">
-                                        <i class="fas fa-gem" style="color: ${item.accent}"></i>
-                                    </div>
-                                    <h3 class="text-xl luxury-font">Authenticité Garantie</h3>
-                                    <p class="opacity-70">Chaque pièce est accompagnée d'un certificat d'authenticité et d'une garantie internationale.</p>
-                                </div>
-                                
-                                <div class="space-y-4">
-                                    <div class="w-12 h-12 rounded-full flex items-center justify-center mb-4" style="background-color: ${item.accent}20">
-                                        <i class="fas fa-shipping-fast" style="color: ${item.accent}"></i>
-                                    </div>
-                                    <h3 class="text-xl luxury-font">Livraison Exclusive</h3>
-                                    <p class="opacity-70">Service de livraison en main propre avec présentation personnalisée de votre acquisition.</p>
-                                </div>
-                                
-                                <div class="space-y-4">
-                                    <div class="w-12 h-12 rounded-full flex items-center justify-center mb-4" style="background-color: ${item.accent}20">
-                                        <i class="fas fa-headset" style="color: ${item.accent}"></i>
-                                    </div>
-                                    <h3 class="text-xl luxury-font">Conseil sur Mesure</h3>
-                                    <p class="opacity-70">Accompagnement personnalisé par nos experts pour choisir la pièce parfaite.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Decorative Elements -->
-                        <div class="absolute top-0 left-0 w-full h-px shimmer"></div>
-                        <div class="absolute top-1/4 left-10 w-px h-32 opacity-10" style="background: linear-gradient(to bottom, transparent, ${item.accent}, transparent);"></div>
-                        <div class="absolute bottom-1/4 right-10 w-px h-32 opacity-10" style="background: linear-gradient(to top, transparent, ${item.accent}, transparent);"></div>
-                    </main>
-                    
-                    <!-- Footer -->
-                    <footer class="py-12 px-6 text-center text-xs font-light tracking-widest uppercase opacity-40"
-                            style="background-color: ${item.bg}; color: ${item.textColor}">
-                        <div class="container mx-auto">
-                            <p>AXION &copy; 2024 - L'excellence au service de l'exception</p>
-                            <div class="flex justify-center space-x-8 mt-6">
-                                <a href="#" class="hover:opacity-70 transition-opacity">Mentions légales</a>
-                                <a href="#" class="hover:opacity-70 transition-opacity">Confidentialité</a>
-                                <a href="#" class="hover:opacity-70 transition-opacity">Conditions</a>
-                                <a href="#" class="hover:opacity-70 transition-opacity">Contact</a>
-                            </div>
-                        </div>
-                    </footer>
-                `;
-                
-                // Réinitialiser les animations du curseur
-                const interactiveElements = document.querySelectorAll('button, a, [role="button"]');
-                interactiveElements.forEach(el => {
-                    el.addEventListener('mouseenter', () => {
-                        document.querySelector('.custom-cursor').style.transform = 'scale(1.5)';
-                        document.querySelector('.custom-cursor').style.borderColor = item.accent + '80';
-                    });
-                    el.addEventListener('mouseleave', () => {
-                        document.querySelector('.custom-cursor').style.transform = 'scale(1)';
-                        document.querySelector('.custom-cursor').style.borderColor = item.accent + '50';
-                    });
-                });
-            }
-            
-            // Exposer la fonction de changement au scope global
-            window.changeItem = function(newIndex) {
-                currentIndex = newIndex;
-                render();
-                
-                // Animation GSAP
-                if (typeof gsap !== 'undefined') {
-                    gsap.fromTo('#app', 
-                        { opacity: 0.8, y: 20 },
-                        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
-                    );
-                }
-            };
-            
-            // Navigation au clavier
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') {
-                    currentIndex = (currentIndex + 1) % collection.length;
-                    render();
-                } else if (e.key === 'ArrowLeft') {
-                    currentIndex = (currentIndex - 1 + collection.length) % collection.length;
-                    render();
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
                 }
             });
-            
-            // Auto-rotation (optionnel)
-            let autoRotate = setInterval(() => {
-                currentIndex = (currentIndex + 1) % collection.length;
-                render();
-            }, 10000);
-            
-            // Arrêter l'auto-rotation au survol
-            app.addEventListener('mouseenter', () => clearInterval(autoRotate));
-            app.addEventListener('mouseleave', () => {
-                autoRotate = setInterval(() => {
-                    currentIndex = (currentIndex + 1) % collection.length;
-                    render();
-                }, 10000);
+        }, observerOptions);
+        
+        // Observer tous les éléments avec data-aos
+        document.querySelectorAll('[data-aos]').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Animation des cartes de produits
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-20px)';
             });
             
-            // Rendu initial
-            render();
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Smooth scroll pour les ancres
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animation du titre
+        const heroTitle = document.querySelector('.hero-text h1');
+        heroTitle.innerHTML = heroTitle.textContent.split('').map(letter => 
+            `<span style="display: inline-block; transition: transform 0.3s ease;">${letter}</span>`
+        ).join('');
+        
+        const letters = heroTitle.querySelectorAll('span');
+        heroTitle.addEventListener('mouseenter', () => {
+            letters.forEach((letter, index) => {
+                setTimeout(() => {
+                    letter.style.transform = 'translateY(-10px)';
+                }, index * 30);
+            });
+        });
+        
+        heroTitle.addEventListener('mouseleave', () => {
+            letters.forEach((letter, index) => {
+                setTimeout(() => {
+                    letter.style.transform = 'translateY(0)';
+                }, index * 30);
+            });
+        });
+        
+        // Effet parallaxe
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.hero-bg, .floating');
+            
+            parallaxElements.forEach(el => {
+                const speed = el.classList.contains('hero-bg') ? 0.5 : 0.3;
+                el.style.transform = `translateY(${scrolled * speed}px)`;
+            });
         });
     </script>
 </body>
