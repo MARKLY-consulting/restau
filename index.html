@@ -1,224 +1,41 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noise - Experience Premium Sound</title>
-    
-    <!-- Scripts React, Tailwind et Framer Motion via CDN -->
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
-    <script src="https://unpkg.com/lucide-react"></script>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            overflow-x: hidden;
-        }
-
-        .text-outline {
-            -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.15);
-            color: transparent;
-        }
-
-        .text-outline-white {
-            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.15);
-            color: transparent;
-        }
-
-        /* Animation de grain subtile */
-        .bg-grain {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.03;
-            pointer-events: none;
-            z-index: 50;
-            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-        }
-    </style>
-</head>
-<body>
-    <div id="root"></div>
-
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { motion, AnimatePresence } = FramerMotion;
-
-        const themes = {
-            green: {
-                id: 'green',
-                bg: '#A8D5BA',
-                text: 'text-emerald-950',
-                accent: 'bg-emerald-950',
-                btnText: 'text-white',
-                img: 'https://p7.hiclipart.com/preview/442/1000/775/headphones-noise-cancelling-headphones-wireless-beats-electronics-headphones.jpg'
-            },
-            black: {
-                id: 'black',
-                bg: '#121212',
-                text: 'text-zinc-100',
-                accent: 'bg-white',
-                btnText: 'text-black',
-                img: 'https://p7.hiclipart.com/preview/411/334/772/beats-electronics-headphones-apple-beats-studio3-wireless-over-ear-headphones-apple.jpg'
-            },
-            white: {
-                id: 'white',
-                bg: '#f0f0f0',
-                text: 'text-zinc-900',
-                accent: 'bg-black',
-                btnText: 'text-white',
-                img: 'https://p7.hiclipart.com/preview/26/509/673/beats-electronics-headphones-wireless-apple-beats-solo3-headphones.jpg'
-            }
-        };
-
-        function App() {
-            const [current, setCurrent] = useState(themes.green);
-            const { ShoppingBag, User, Play, Bluetooth, Battery, Droplets, Mic2, ArrowRight } = lucide;
-
-            return (
-                <div className="transition-colors duration-1000 ease-in-out min-h-screen relative" style={{ backgroundColor: current.bg }}>
-                    <div className="bg-grain"></div>
-
-                    {/* --- NAVBAR --- */}
-                    <nav className={`flex justify-between items-center px-10 py-8 relative z-50 font-bold uppercase text-[11px] tracking-widest ${current.text}`}>
-                        <div className="text-2xl lowercase font-black tracking-tighter">noise</div>
-                        <div className="hidden md:flex space-x-12 cursor-pointer">
-                            <span className="hover:opacity-50 transition-opacity">Product</span>
-                            <span className="hover:opacity-50 transition-opacity">Gift Store</span>
-                            <span className="hover:opacity-50 transition-opacity">Support</span>
-                            <span className="hover:opacity-50 transition-opacity">Blogs</span>
-                        </div>
-                        <div className="flex space-x-6 items-center">
-                            <User size={18} strokeWidth={2.5} className="cursor-pointer" />
-                            <div className="relative cursor-pointer">
-                                <ShoppingBag size={18} strokeWidth={2.5} />
-                                <span className={`absolute -top-1 -right-2 text-[8px] rounded-full w-4 h-4 flex items-center justify-center font-bold ${current.accent} ${current.btnText}`}>0</span>
-                            </div>
-                        </div>
-                    </nav>
-
-                    {/* --- HERO SECTION --- */}
-                    <main className="relative flex flex-col items-center justify-center pt-10 px-6 min-h-[80vh]">
-                        
-                        {/* Grand texte d'arrière-plan */}
-                        <h1 className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-[900] pointer-events-none select-none z-0 tracking-tighter transition-all duration-1000 ${current.id === 'black' ? 'text-outline-white' : 'text-outline'}`}>
-                            NOISE
-                        </h1>
-
-                        <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-3 items-center z-10 relative">
-                            
-                            {/* Colonne Gauche */}
-                            <motion.div 
-                                initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}
-                                className={`space-y-20 ${current.text}`}
-                            >
-                                <div>
-                                    <p className="text-[10px] uppercase font-black tracking-[0.3em] mb-3 opacity-60">Quality</p>
-                                    <p className="text-base font-semibold leading-snug max-w-[200px]">50 hours of playtime. Hyper Sync. Quad Mic.</p>
-                                </div>
-
-                                <div>
-                                    <p className="text-[10px] uppercase font-black tracking-[0.3em] mb-4 opacity-60">Select Color</p>
-                                    <div className="flex space-x-4">
-                                        {Object.values(themes).map((t) => (
-                                            <button 
-                                                key={t.id}
-                                                onClick={() => setCurrent(t)}
-                                                className={`w-7 h-7 rounded-full border-2 transition-transform duration-300 hover:scale-110 ${current.id === t.id ? 'scale-125 border-current shadow-lg' : 'border-transparent opacity-50'}`}
-                                                style={{ backgroundColor: t.id === 'green' ? '#A8D5BA' : t.id }}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            {/* Colonne Centre (Image) */}
-                            <div className="relative flex justify-center py-10">
-                                <AnimatePresence mode="wait">
-                                    <motion.img 
-                                        key={current.id}
-                                        src={current.img}
-                                        initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                                        animate={{ opacity: 1, scale: 1, y: [0, -25, 0] }}
-                                        exit={{ opacity: 0, scale: 0.9, y: -20 }}
-                                        transition={{ 
-                                            y: { repeat: Infinity, duration: 5, ease: "easeInOut" },
-                                            opacity: { duration: 0.6 }
-                                        }}
-                                        className="w-[110%] md:w-[130%] max-w-lg z-20 drop-shadow-[0_50px_50px_rgba(0,0,0,0.25)]"
-                                    />
-                                </AnimatePresence>
-                            </div>
-
-                            {/* Colonne Droite */}
-                            <motion.div 
-                                initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }}
-                                className={`space-y-20 text-right flex flex-col items-end ${current.text}`}
-                            >
-                                <div>
-                                    <p className="text-[10px] uppercase font-black tracking-[0.3em] mb-3 opacity-60">Quad Mic</p>
-                                    <p className="text-base font-semibold leading-snug max-w-[200px]">Environmental noise cancellation.</p>
-                                </div>
-                                <div>
-                                    <p className="text-[10px] uppercase font-black tracking-[0.3em] mb-3 opacity-60">No Interrupt</p>
-                                    <p className="text-base font-semibold leading-snug max-w-[200px]">Continuous sound experience.</p>
-                                </div>
-                            </motion.div>
-                        </div>
-
-                        {/* CTA Buttons */}
-                        <div className="flex flex-col items-center mt-12 space-y-8 z-20">
-                            <motion.button 
-                                whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-                                className={`px-12 py-4 rounded-full font-black uppercase tracking-[0.2em] text-[11px] shadow-2xl transition-all duration-500 ${current.accent} ${current.btnText}`}
-                            >
-                                Buy Now
-                            </motion.button>
-                            <button className={`flex items-center space-x-3 text-[11px] font-black uppercase tracking-widest ${current.text}`}>
-                                <div className={`p-3 rounded-full border-2 ${current.id === 'black' ? 'border-zinc-700' : 'border-black/10'}`}>
-                                    <Play size={14} fill="currentColor" />
-                                </div>
-                                <span>Play Video</span>
-                            </button>
-                        </div>
-                    </main>
-
-                    {/* --- FEATURES GRID --- */}
-                    <section className="py-40 px-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <FeatureCard icon={<Bluetooth size={32}/>} title="Version 5.3" desc="Seamless and fast connection." theme={current} />
-                        <FeatureCard icon={<Battery size={32}/>} title="50 Hours" desc="Keep the music going all day." theme={current} />
-                        <FeatureCard icon={<Mic2 size={32}/>} title="Quad Mic" desc="Clear calls anywhere." theme={current} />
-                        <FeatureCard icon={<Droplets size={32}/>} title="IPX5 Water" desc="Rain or sweat resistant." theme={current} />
-                    </section>
-
-                    <footer className={`py-12 text-center text-[10px] font-bold uppercase tracking-[0.5em] opacity-40 ${current.text}`}>
-                        © 2024 noise brand. all rights reserved.
-                    </footer>
-                </div>
-            );
-        }
-
-        function FeatureCard({ icon, title, desc, theme }) {
-            return (
-                <motion.div 
-                    whileHover={{ y: -10 }}
-                    className={`p-10 rounded-[40px] border transition-all duration-500 flex flex-col items-start ${theme.id === 'black' ? 'bg-white/5 border-white/10' : 'bg-black/5 border-black/5'} ${theme.text}`}
-                >
-                    <div className="mb-8 opacity-80">{icon}</div>
-                    <h4 className="text-xl font-black mb-3">{title}</h4>
-                    <p className="opacity-60 text-sm font-medium leading-relaxed">{desc}</p>
-                </motion.div>
-            );
-        }
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
-</body>
-</html>
+// package.json
+{
+  "name": "noise-landing-page",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "framer-motion": "^10.16.4",
+    "lucide-react": "^0.263.1",
+    "react-scripts": "5.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.3",
+    "autoprefixer": "^10.4.15",
+    "postcss": "^8.4.29"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
