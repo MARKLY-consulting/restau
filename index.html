@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXION | L'Excellence Absolue</title>
+    <title>AXON | Luxury Tech Artifacts</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -12,30 +12,31 @@
     <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Inter:wght@200;400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700;900&display=swap');
         
-        body { font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; }
-        .font-luxury { font-family: 'Cormorant Garamond', serif; }
-        .font-title { font-weight: 900; letter-spacing: -0.05em; }
-
-        /* Effet de texte évidé (Outline) dynamique */
-        .text-outline { -webkit-text-stroke: 1px rgba(184, 158, 103, 0.2); color: transparent; }
-        .text-outline-white { -webkit-text-stroke: 1px rgba(255,255,255,0.1); color: transparent; }
-
-        /* Effet de lumière sur l'accessoire */
-        .glow {
-            filter: drop-shadow(0 0 30px rgba(184, 158, 103, 0.3));
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            margin: 0; 
+            overflow: hidden; 
+            background: #000;
         }
 
-        /* Curseur personnalisé */
-        .custom-cursor {
-            width: 20px; height: 20px;
-            background: rgba(184, 158, 103, 0.5);
-            border-radius: 50%;
-            position: fixed;
+        .outline-text {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+            color: transparent;
+            text-transform: uppercase;
+        }
+
+        /* Effet de reflet sur l'objet */
+        .glass-reflection {
+            position: relative;
+        }
+        .glass-reflection::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
             pointer-events: none;
-            z-index: 999;
-            mix-blend-mode: difference;
         }
     </style>
 </head>
@@ -46,182 +47,167 @@
         const { useState } = React;
         const { motion, AnimatePresence } = window.Motion;
 
-        const collection = [
+        const artifacts = [
             {
-                id: 'CHRONO',
-                name: 'Heritage Gold 42',
-                category: 'Haute Horlogerie',
-                material: 'Or Rose 18K & Cuir Crocodile',
-                price: '24.500 €',
-                edition: 'Édition Limitée 01/50',
-                bg: '#0A0F0D', // Émeraude très sombre / Noir
-                accent: '#B89E67', // Or mat
-                text: 'text-[#B89E67]',
-                img: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200&auto=format'
+                id: "PHANTOM",
+                name: "Aural-X1",
+                category: "Audio Artifact",
+                material: "Grade 5 Titanium",
+                price: "2.800 €",
+                specs: "Lossless / 60h Bat.",
+                bg: "#0D0D0D", // Obsidian
+                accent: "#C5A059", // Bronze
+                text: "text-white",
+                img: "https://images.unsplash.com/photo-1546435770-a3e426da473b?q=80&w=1200&auto=format"
             },
             {
-                id: 'VISION',
-                name: 'Aviator Black Onyx',
-                category: 'Lunettes de Créateur',
-                material: 'Titane Japonais & Verres Polarisés',
-                price: '1.250 €',
-                edition: 'Collection Automne 2024',
-                bg: '#F5F2ED', // Crème Royal
-                accent: '#1A1A1A', // Noir Profond
-                text: 'text-[#1A1A1A]',
-                img: 'https://images.unsplash.com/photo-1511499767390-a73359580bc1?q=80&w=1200&auto=format'
+                id: "CARBON",
+                name: "Vortex-V",
+                category: "Security Tool",
+                material: "Forged Carbon",
+                price: "950 €",
+                specs: "Biometric / RFID",
+                bg: "#F2F2F2", // Silk White
+                accent: "#000000",
+                text: "text-black",
+                img: "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=1200&auto=format"
             },
             {
-                id: 'AURA',
-                name: 'Stellar Ring',
-                category: 'Joaillerie Fine',
-                material: 'Diamant VVS & Platine',
-                price: '18.900 €',
-                edition: 'Pièce Unique',
-                bg: '#121418', // Anthracite Luxe
-                accent: '#FFFFFF', // Blanc Pur
-                text: 'text-zinc-100',
-                img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1200&auto=format'
+                id: "NEURAL",
+                name: "Optic-N",
+                category: "Visual Interface",
+                material: "Bio-Polymer",
+                price: "4.500 €",
+                specs: "AR 4K / Eye-Track",
+                bg: "#0A1128", // Deep Midnight
+                accent: "#00FFC2", // Cyber Neon
+                text: "text-white",
+                img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=1200&auto=format"
             }
         ];
 
         function App() {
             const [index, setIndex] = useState(0);
-            const item = collection[index];
+            const item = artifacts[index];
 
-            const next = () => setIndex((index + 1) % collection.length);
-            const prev = () => setIndex((index - 1 + collection.length) % collection.length);
+            const next = () => setIndex((index + 1) % artifacts.length);
+            const prev = () => setIndex((index - 1 + artifacts.length) % artifacts.length);
 
             return (
                 <div className="transition-colors duration-1000 min-h-screen relative overflow-hidden" style={{ backgroundColor: item.bg }}>
                     
-                    {/* Navigation Bar */}
-                    <nav className={`flex justify-between items-center px-16 py-10 relative z-50 font-bold uppercase text-[10px] tracking-[0.6em] ${item.text}`}>
-                        <div className="text-3xl font-title tracking-tighter italic">AXION.</div>
-                        <div className="hidden lg:flex space-x-16 opacity-40">
-                            <span className="hover:opacity-100 cursor-pointer">Atelier</span>
-                            <span className="hover:opacity-100 cursor-pointer">Héritage</span>
-                            <span className="hover:opacity-100 cursor-pointer">Boutiques</span>
-                        </div>
-                        <div className="flex items-center space-x-8">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    {/* Header Minimaliste */}
+                    <nav className={`flex justify-between items-center px-10 py-8 relative z-50 ${item.text}`}>
+                        <div className="text-xl font-black tracking-widest uppercase">AXON<span className="opacity-30">.STUDIO</span></div>
+                        <div className="flex space-x-8 text-[10px] font-bold tracking-[0.4em] uppercase cursor-pointer">
+                            <span className="hover:line-through">Archive</span>
+                            <span className="hover:line-through">Lab</span>
                         </div>
                     </nav>
 
-                    {/* Hero Section */}
-                    <main className="relative h-[80vh] flex items-center justify-center">
-                        
-                        {/* Background Giant Text */}
-                        <AnimatePresence mode="wait">
-                            <motion.h1 
-                                key={item.id}
-                                initial={{ opacity: 0, scale: 0.9, letterSpacing: "0.2em" }}
-                                animate={{ opacity: 1, scale: 1, letterSpacing: "-0.05em" }}
-                                exit={{ opacity: 0, scale: 1.1 }}
-                                transition={{ duration: 1, ease: "circOut" }}
-                                className={`absolute text-[28vw] font-black z-0 pointer-events-none select-none transition-all ${item.bg === '#F5F2ED' ? 'text-outline' : 'text-outline-white'}`}
-                            >
-                                {item.id}
-                            </motion.h1>
-                        </AnimatePresence>
-
-                        {/* --- DYNAMIC INFO CORNERS --- */}
-                        <div className={`absolute inset-0 z-20 pointer-events-none p-24 ${item.text}`}>
-                            
-                            {/* TOP LEFT: Category & Serial */}
-                            <motion.div 
-                                key={index + "1"}
-                                initial={{ x: -100, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
-                                className="absolute top-40 left-20 border-l border-current pl-6"
-                            >
-                                <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-40 mb-2">Catégorie</p>
-                                <p className="text-xl font-luxury italic leading-none">{item.category}</p>
-                                <p className="mt-4 text-[10px] font-bold opacity-60 tracking-widest">{item.edition}</p>
-                            </motion.div>
-
-                            {/* TOP RIGHT: Material */}
-                            <motion.div 
-                                key={index + "2"}
-                                initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
-                                className="absolute top-40 right-20 text-right border-r border-current pr-6"
-                            >
-                                <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-40 mb-2">Composition</p>
-                                <p className="text-xl font-luxury italic leading-none">{item.material}</p>
-                            </motion.div>
-
-                            {/* BOTTOM LEFT: Price */}
-                            <motion.div 
-                                key={index + "3"}
-                                initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-                                className="absolute bottom-40 left-20"
-                            >
-                                <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-40 mb-2">Valeur Estimée</p>
-                                <p className="text-6xl font-light tracking-tighter italic">{item.price}</p>
-                            </motion.div>
-
-                            {/* BOTTOM RIGHT: Model Name */}
-                            <motion.div 
-                                key={index + "4"}
-                                initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-                                className="absolute bottom-40 right-20 text-right"
-                            >
-                                <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-40 mb-2">Modèle</p>
-                                <p className="text-3xl font-black uppercase tracking-tight">{item.name}</p>
-                            </motion.div>
-                        </div>
-
-                        {/* --- CENTRAL LUXURY OBJECT --- */}
-                        <div className="relative z-10 w-full max-w-xl h-[550px] flex items-center justify-center">
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, scale: 0.5, rotateY: 90 }}
-                                    animate={{ opacity: 1, scale: 1, rotateY: 0, y: [0, -30, 0] }}
-                                    exit={{ opacity: 0, scale: 1.5, rotateY: -90 }}
-                                    transition={{ 
-                                        y: { repeat: Infinity, duration: 6, ease: "easeInOut" },
-                                        duration: 0.8
-                                    }}
-                                    className="w-full h-full glow rounded-[60px] overflow-hidden border-[1px] border-white/10 shadow-3xl"
-                                >
-                                    <img src={item.img} className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700" />
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
-
-                    </main>
-
-                    {/* --- CONTROLS & CTA --- */}
-                    <div className="absolute bottom-12 left-0 w-full flex flex-col items-center space-y-10 z-50">
-                        <motion.button 
-                            whileHover={{ scale: 1.05, letterSpacing: "0.5em" }}
-                            whileTap={{ scale: 0.95 }}
-                            style={{ backgroundColor: item.bg === '#F5F2ED' ? '#1A1A1A' : '#B89E67', color: item.bg === '#F5F2ED' ? '#FFFFFF' : '#000000' }}
-                            className="px-20 py-6 rounded-full font-black uppercase tracking-[0.3em] text-[10px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all"
+                    {/* background Giant Text */}
+                    <AnimatePresence mode="wait">
+                        <motion.div 
+                            key={item.id}
+                            initial={{ x: "100%", opacity: 0 }}
+                            animate={{ x: "-20%", opacity: 1 }}
+                            exit={{ x: "-100%", opacity: 0 }}
+                            transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
+                            className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap z-0 pointer-events-none"
                         >
-                            Acquérir l'Exclusivité
-                        </motion.button>
+                            <h2 className="text-[35vw] font-black outline-text leading-none">{item.id}</h2>
+                        </motion.div>
+                    </AnimatePresence>
+
+                    {/* --- INTERFACE INTELLIGENTE (COINS) --- */}
+                    <div className={`absolute inset-0 z-30 pointer-events-none p-16 ${item.text}`}>
                         
-                        <div className={`flex items-center space-x-16 ${item.text}`}>
-                            <button onClick={prev} className="hover:scale-150 transition-transform p-4 opacity-30 hover:opacity-100">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="m15 18-6-6 6-6"/></svg>
-                            </button>
-                            <div className="flex space-x-3">
-                                {collection.map((_, i) => (
-                                    <div key={i} className={`w-1 h-1 rounded-full transition-all duration-500 ${index === i ? 'w-8 bg-current' : 'bg-current opacity-20'}`}></div>
-                                ))}
-                            </div>
-                            <button onClick={next} className="hover:scale-150 transition-transform p-4 opacity-30 hover:opacity-100">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="m9 18 6-6-6-6"/></svg>
-                            </button>
-                        </div>
+                        {/* TOP LEFT */}
+                        <motion.div 
+                            key={index + "tl"}
+                            initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+                            className="absolute top-32 left-16"
+                        >
+                            <p className="text-[9px] font-bold tracking-[0.5em] opacity-30 mb-2 uppercase">Category</p>
+                            <p className="text-2xl font-light uppercase tracking-tighter">{item.category}</p>
+                        </motion.div>
+
+                        {/* TOP RIGHT */}
+                        <motion.div 
+                            key={index + "tr"}
+                            initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+                            className="absolute top-32 right-16 text-right"
+                        >
+                            <p className="text-[9px] font-bold tracking-[0.5em] opacity-30 mb-2 uppercase">Technical Specs</p>
+                            <p className="text-xl font-bold uppercase">{item.specs}</p>
+                        </motion.div>
+
+                        {/* BOTTOM LEFT */}
+                        <motion.div 
+                            key={index + "bl"}
+                            initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+                            className="absolute bottom-32 left-16"
+                        >
+                            <p className="text-[9px] font-bold tracking-[0.5em] opacity-30 mb-2 uppercase">Material</p>
+                            <p className="text-2xl font-light italic uppercase tracking-tighter">{item.material}</p>
+                        </motion.div>
+
+                        {/* BOTTOM RIGHT */}
+                        <motion.div 
+                            key={index + "br"}
+                            initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+                            className="absolute bottom-32 right-16 text-right"
+                        >
+                            <p className="text-[9px] font-bold tracking-[0.5em] opacity-30 mb-2 uppercase">Price / Acquisition</p>
+                            <p className="text-6xl font-black">{item.price}</p>
+                        </motion.div>
                     </div>
 
-                    {/* Subtle Overlay Lines */}
-                    <div className="absolute inset-0 pointer-events-none opacity-5">
-                        <div className="h-full w-px bg-current absolute left-1/4"></div>
-                        <div className="h-full w-px bg-current absolute right-1/4"></div>
+                    {/* --- OBJET CENTRAL --- */}
+                    <div className="relative z-20 w-full h-screen flex items-center justify-center">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, scale: 0.7, rotate: -10 }}
+                                animate={{ opacity: 1, scale: 1, rotate: 0, y: [0, -25, 0] }}
+                                exit={{ opacity: 0, scale: 1.3, rotate: 10 }}
+                                transition={{ 
+                                    y: { repeat: Infinity, duration: 5, ease: "easeInOut" },
+                                    duration: 0.8 
+                                }}
+                                className="w-[450px] h-[550px] glass-reflection rounded-[20px] overflow-hidden shadow-[0_60px_100px_-20px_rgba(0,0,0,0.6)] border border-white/5"
+                            >
+                                <img src={item.img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
+
+                    {/* --- CONTROLES --- */}
+                    <div className="absolute bottom-10 left-0 w-full flex justify-between px-16 items-center z-50">
+                        <div className={`flex space-x-6 items-center ${item.text}`}>
+                            <button onClick={prev} className="w-12 h-12 flex items-center justify-center rounded-full border border-current opacity-20 hover:opacity-100 transition-all">
+                                ←
+                            </button>
+                            <span className="text-[10px] font-black tracking-widest">{index + 1} / {artifacts.length}</span>
+                            <button onClick={next} className="w-12 h-12 flex items-center justify-center rounded-full border border-current opacity-20 hover:opacity-100 transition-all">
+                                →
+                            </button>
+                        </div>
+
+                        <motion.button 
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            className={`px-12 py-5 rounded-full text-[10px] font-black uppercase tracking-[0.4em] shadow-2xl transition-all`}
+                            style={{ backgroundColor: item.accent, color: item.bg === '#F2F2F2' ? '#FFF' : '#000' }}
+                        >
+                            Acquire Artifact
+                        </motion.button>
+                    </div>
+
+                    {/* Lignes de Design Intelligentes */}
+                    <div className={`absolute inset-0 pointer-events-none opacity-10 ${item.bg === '#F2F2F2' ? 'bg-black' : 'bg-white'}`} style={{ maskImage: 'radial-gradient(circle, transparent 0%, black 100%)' }}>
+                        <div className="absolute top-0 left-1/2 w-px h-full bg-current"></div>
+                        <div className="absolute top-1/2 left-0 w-full h-px bg-current"></div>
                     </div>
                 </div>
             );
