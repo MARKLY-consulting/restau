@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Étoile d'Or - Restaurant Gastronomique 3 Étoiles</title>
+    <title>Le Cristal - Restaurant Gastronomique 3D</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,12 +14,12 @@
         }
 
         :root {
-            --gold-primary: #D4AF37;
-            --gold-secondary: #FFD700;
-            --gold-light: #F5E8AA;
+            --crystal-blue: #00B4D8;
+            --crystal-dark: #03045E;
+            --crystal-light: #CAF0F8;
+            --gold-accent: #FFD700;
             --platinum: #E5E4E2;
             --black-luxe: #0A0A0A;
-            --dark-burgundy: #4A0A0A;
             --white-luxe: #FAF9F6;
         }
 
@@ -30,7 +30,7 @@
             font-weight: 300;
         }
 
-        /* Animation de chargement et porte 3D luxueuse */
+        /* Animation de chargement et porte 3D cristal */
         .door-container {
             position: fixed;
             top: 0;
@@ -38,8 +38,8 @@
             width: 100%;
             height: 100vh;
             z-index: 10000;
-            perspective: 1800px;
-            background: radial-gradient(ellipse at center, #1a1a1a 0%, #000000 100%);
+            perspective: 2000px;
+            background: radial-gradient(ellipse at center, var(--crystal-dark) 0%, #000000 100%);
             overflow: hidden;
         }
 
@@ -49,12 +49,12 @@
             height: 88%;
             top: 6%;
             left: 6%;
-            border: 30px solid;
-            border-image: linear-gradient(45deg, var(--gold-primary), #B8860B, var(--gold-primary)) 1;
-            border-radius: 5px;
+            border: 25px solid transparent;
+            border-image: linear-gradient(45deg, var(--crystal-blue), #0077B6, var(--crystal-blue)) 1;
+            border-radius: 10px;
             box-shadow: 
-                inset 0 0 80px rgba(0, 0, 0, 0.9),
-                0 0 100px rgba(212, 175, 55, 0.4);
+                inset 0 0 100px rgba(0, 180, 216, 0.2),
+                0 0 120px rgba(0, 180, 216, 0.4);
             z-index: 2;
         }
 
@@ -72,15 +72,15 @@
             width: 50%;
             height: 100%;
             background: 
-                linear-gradient(135deg, #2A1505 0%, #1A0D03 50%, #2A1505 100%),
-                url('https://www.transparenttextures.com/patterns/black-paper.png');
+                linear-gradient(135deg, rgba(3, 4, 94, 0.9) 0%, rgba(0, 119, 182, 0.9) 50%, rgba(3, 4, 94, 0.9) 100%),
+                url('https://www.transparenttextures.com/patterns/crystal.png');
             position: relative;
             transform-origin: center;
             backface-visibility: hidden;
             box-shadow: 
-                inset 0 0 100px rgba(0, 0, 0, 0.95),
-                0 0 50px rgba(0, 0, 0, 0.9);
-            border-right: 1px solid rgba(212, 175, 55, 0.1);
+                inset 0 0 100px rgba(0, 0, 0, 0.8),
+                0 0 60px rgba(0, 180, 216, 0.5);
+            border-right: 1px solid rgba(0, 180, 216, 0.3);
         }
 
         .door-left {
@@ -91,30 +91,32 @@
             transform-origin: right center;
         }
 
-        .door-ornament {
+        .door-crystal-effect {
             position: absolute;
-            top: 20%;
-            left: 10%;
-            right: 10%;
-            bottom: 20%;
+            width: 100%;
+            height: 100%;
             background: 
-                radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 70%),
-                radial-gradient(circle at 70% 70%, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
-            border: 2px solid rgba(212, 175, 55, 0.15);
-            border-radius: 3px;
+                radial-gradient(circle at 30% 30%, rgba(0, 180, 216, 0.1) 0%, transparent 70%),
+                radial-gradient(circle at 70% 70%, rgba(0, 180, 216, 0.1) 0%, transparent 70%);
+            animation: crystalShine 3s infinite alternate;
+        }
+
+        @keyframes crystalShine {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
         }
 
         .door-handle {
             position: absolute;
-            width: 40px;
-            height: 40px;
-            background: radial-gradient(circle at 30% 30%, var(--gold-primary) 0%, #B8860B 70%);
+            width: 45px;
+            height: 45px;
+            background: radial-gradient(circle at 30% 30%, var(--crystal-blue) 0%, #0077B6 70%);
             border-radius: 50%;
             top: 50%;
             box-shadow: 
-                0 0 30px rgba(212, 175, 55, 0.9),
-                inset 3px 3px 8px rgba(255, 255, 255, 0.3),
-                inset -3px -3px 8px rgba(0, 0, 0, 0.7);
+                0 0 40px rgba(0, 180, 216, 0.9),
+                inset 3px 3px 10px rgba(255, 255, 255, 0.4),
+                inset -3px -3px 10px rgba(0, 0, 0, 0.7);
             z-index: 4;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
@@ -131,9 +133,9 @@
         .door-handle:hover {
             transform: scale(1.4) rotate(180deg);
             box-shadow: 
-                0 0 50px rgba(212, 175, 55, 1),
-                inset 5px 5px 10px rgba(255, 255, 255, 0.4),
-                inset -5px -5px 10px rgba(0, 0, 0, 0.8);
+                0 0 60px rgba(0, 180, 216, 1),
+                inset 5px 5px 12px rgba(255, 255, 255, 0.5),
+                inset -5px -5px 12px rgba(0, 0, 0, 0.8);
         }
 
         .door-sign {
@@ -141,33 +143,31 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: var(--gold-primary);
+            color: var(--crystal-light);
             font-size: 4.5rem;
             text-align: center;
             width: 100%;
             text-shadow: 
-                0 0 20px rgba(212, 175, 55, 0.9),
-                0 0 40px rgba(212, 175, 55, 0.7),
-                0 0 60px rgba(212, 175, 55, 0.5);
+                0 0 20px rgba(0, 180, 216, 0.9),
+                0 0 40px rgba(0, 180, 216, 0.7),
+                0 0 60px rgba(0, 180, 216, 0.5);
             font-family: 'Playfair Display', 'Times New Roman', serif;
             letter-spacing: 8px;
             z-index: 5;
-            animation: luxeGlow 3s infinite alternate;
+            animation: crystalGlow 3s infinite alternate;
         }
 
-        @keyframes luxeGlow {
+        @keyframes crystalGlow {
             0% {
                 text-shadow: 
-                    0 0 20px rgba(212, 175, 55, 0.9),
-                    0 0 40px rgba(212, 175, 55, 0.7),
-                    0 0 60px rgba(212, 175, 55, 0.5);
+                    0 0 20px rgba(0, 180, 216, 0.9),
+                    0 0 40px rgba(0, 180, 216, 0.7);
             }
             100% {
                 text-shadow: 
-                    0 0 30px rgba(212, 175, 55, 1),
-                    0 0 60px rgba(212, 175, 55, 0.9),
-                    0 0 90px rgba(212, 175, 55, 0.7),
-                    0 0 120px rgba(212, 175, 55, 0.5);
+                    0 0 30px rgba(0, 180, 216, 1),
+                    0 0 60px rgba(0, 180, 216, 0.9),
+                    0 0 90px rgba(0, 180, 216, 0.7);
             }
         }
 
@@ -175,7 +175,7 @@
             display: block;
             font-size: 1.8rem;
             margin-top: 25px;
-            letter-spacing: 12px;
+            letter-spacing: 10px;
             font-weight: 300;
             color: var(--platinum);
         }
@@ -185,20 +185,20 @@
             bottom: 12%;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(145deg, var(--gold-primary) 0%, #B8860B 100%);
-            color: var(--black-luxe);
+            background: linear-gradient(145deg, var(--crystal-blue) 0%, #0077B6 100%);
+            color: var(--white-luxe);
             border: none;
             padding: 22px 60px;
             font-size: 1.4rem;
             font-weight: 600;
-            border-radius: 0;
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             opacity: 0;
             animation: fadeInUp 1.5s ease 3s forwards;
             box-shadow: 
                 0 15px 40px rgba(0, 0, 0, 0.4),
-                0 0 30px rgba(212, 175, 55, 0.6);
+                0 0 30px rgba(0, 180, 216, 0.6);
             z-index: 10;
             letter-spacing: 3px;
             font-family: 'Cormorant Garamond', serif;
@@ -206,20 +206,20 @@
         }
 
         .enter-btn:hover {
-            background: linear-gradient(145deg, #FFD700 0%, var(--gold-primary) 100%);
+            background: linear-gradient(145deg, #00D4FF 0%, var(--crystal-blue) 100%);
             transform: translateX(-50%) scale(1.1);
             box-shadow: 
                 0 25px 60px rgba(0, 0, 0, 0.6),
-                0 0 50px rgba(212, 175, 55, 0.9);
+                0 0 50px rgba(0, 180, 216, 0.9);
             letter-spacing: 6px;
             padding: 22px 70px;
         }
 
         .door-container.hidden {
-            animation: luxeFadeOut 1.5s forwards;
+            animation: crystalFadeOut 1.5s forwards;
         }
 
-        @keyframes luxeFadeOut {
+        @keyframes crystalFadeOut {
             0% {
                 opacity: 1;
                 transform: scale(1);
@@ -239,141 +239,12 @@
             transform: rotateY(120deg) translateX(20px);
         }
 
-        /* Barre de réservation luxueuse */
-        .reservation-bar {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            width: 380px;
-            background: linear-gradient(145deg, rgba(10, 10, 10, 0.97) 0%, rgba(30, 30, 30, 0.97) 100%);
-            border-radius: 2px;
-            padding: 25px;
-            box-shadow: 
-                0 25px 60px rgba(0, 0, 0, 0.7),
-                inset 0 1px 0 rgba(212, 175, 55, 0.2),
-                0 0 0 1px rgba(212, 175, 55, 0.1);
-            z-index: 999;
-            transform: translateX(500px);
-            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(15px);
-            border-top: 3px solid var(--gold-primary);
-        }
-
-        .reservation-bar.active {
-            transform: translateX(0);
-        }
-
-        .reservation-bar h3 {
-            color: var(--gold-primary);
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.6rem;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 3px;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .reservation-bar h3:after {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--gold-primary), transparent);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .reservation-form-compact {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .reservation-form-compact input, 
-        .reservation-form-compact select {
-            padding: 14px 18px;
-            border-radius: 0;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            background: rgba(20, 20, 20, 0.8);
-            color: var(--platinum);
-            font-size: 1rem;
-            font-family: 'Cormorant Garamond', serif;
-            transition: all 0.4s;
-        }
-
-        .reservation-form-compact input:focus, 
-        .reservation-form-compact select:focus {
-            outline: none;
-            border-color: var(--gold-primary);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-            background: rgba(30, 30, 30, 0.9);
-        }
-
-        .reservation-bar-btn {
-            background: linear-gradient(145deg, var(--gold-primary) 0%, #B8860B 100%);
-            color: var(--black-luxe);
-            border: none;
-            padding: 16px;
-            border-radius: 0;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.5s;
-            margin-top: 10px;
-            font-family: 'Cormorant Garamond', serif;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .reservation-bar-btn:hover {
-            background: linear-gradient(145deg, #FFD700 0%, var(--gold-primary) 100%);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            letter-spacing: 3px;
-        }
-
-        .close-reservation-bar {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            color: var(--gold-primary);
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: all 0.5s;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-reservation-bar:hover {
-            transform: rotate(90deg) scale(1.2);
-            color: var(--gold-secondary);
-        }
-
-        /* Contenu principal */
-        .main-content {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 2s ease, transform 2s ease;
-        }
-
-        .main-content.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Navigation luxueuse */
+        /* Navigation cristal */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: linear-gradient(to bottom, rgba(10, 10, 10, 0.98) 0%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(3, 4, 94, 0.95) 0%, transparent 100%);
             padding: 25px 0;
             z-index: 1000;
             display: flex;
@@ -381,228 +252,18 @@
             backdrop-filter: blur(10px);
             transform: translateY(-100%);
             transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            border-bottom: 1px solid rgba(0, 180, 216, 0.2);
         }
 
         nav.visible {
             transform: translateY(0);
         }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 90%;
-            max-width: 1400px;
-        }
-
-        .logo {
-            color: var(--gold-primary);
-            font-size: 2.2rem;
-            font-weight: 400;
-            font-family: 'Playfair Display', serif;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-            letter-spacing: 3px;
-        }
-
-        .logo span {
-            font-size: 1.2rem;
-            color: var(--platinum);
-            letter-spacing: 6px;
-            margin-left: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 45px;
-        }
-
-        .nav-links a {
-            color: var(--platinum);
-            text-decoration: none;
-            font-weight: 400;
-            transition: all 0.4s;
-            position: relative;
-            padding: 8px 0;
-            letter-spacing: 1.5px;
-            font-size: 1.1rem;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold-primary);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            background: var(--gold-primary);
-            left: 0;
-            bottom: 0;
-            transition: width 0.5s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .reservation-nav-btn {
-            background: linear-gradient(145deg, var(--gold-primary) 0%, #B8860B 100%);
-            color: var(--black-luxe);
-            border: none;
-            padding: 14px 32px;
-            border-radius: 0;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.5s;
-            margin-left: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            font-family: 'Cormorant Garamond', serif;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .reservation-nav-btn:hover {
-            background: linear-gradient(145deg, #FFD700 0%, var(--gold-primary) 100%);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            letter-spacing: 3px;
-        }
-
-        /* Sections */
-        section {
-            padding: 180px 0 120px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(80px);
-            transition: opacity 1.2s ease, transform 1.2s ease;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section-container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* Section Hero */
-        .hero {
-            background: 
-                linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.8)), 
-                url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--white-luxe);
-            text-align: center;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at center, transparent 30%, rgba(10, 10, 10, 0.9) 70%);
-        }
-
-        .hero-content {
-            animation: fadeInUp 2s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 5.5rem;
-            margin-bottom: 30px;
-            color: var(--gold-primary);
-            font-family: 'Playfair Display', serif;
-            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.7);
-            letter-spacing: 4px;
-            font-weight: 300;
-            line-height: 1.1;
-        }
-
-        .hero h1 span {
-            display: block;
-            font-size: 2.5rem;
-            color: var(--platinum);
-            letter-spacing: 8px;
-            margin-top: 20px;
-            font-weight: 300;
-        }
-
-        .hero p {
-            font-size: 1.8rem;
-            margin-bottom: 50px;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-            color: var(--gold-light);
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: linear-gradient(145deg, var(--gold-primary) 0%, #B8860B 100%);
-            color: var(--black-luxe);
-            padding: 20px 55px;
-            border-radius: 0;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.3rem;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            letter-spacing: 2px;
-            font-family: 'Cormorant Garamond', serif;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.7s;
-        }
-
-        .btn:hover:before {
-            left: 100%;
-        }
-
-        .btn:hover {
-            background: linear-gradient(145deg, #FFD700 0%, var(--gold-primary) 100%);
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-            letter-spacing: 4px;
-        }
-
-        /* Section Menu Luxueux */
+        /* Section Menu 3D */
         .menu {
             background-color: var(--black-luxe);
             position: relative;
+            padding: 150px 0;
         }
 
         .menu::before {
@@ -612,16 +273,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 180, 216, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 180, 216, 0.05) 0%, transparent 50%);
         }
 
         .section-title {
             text-align: center;
             font-size: 3.5rem;
             margin-bottom: 100px;
-            color: var(--gold-primary);
+            color: var(--crystal-light);
             position: relative;
             letter-spacing: 4px;
             font-family: 'Playfair Display', serif;
@@ -633,877 +294,840 @@
             position: absolute;
             width: 200px;
             height: 2px;
-            background: linear-gradient(to right, transparent, var(--gold-primary), transparent);
+            background: linear-gradient(to right, transparent, var(--crystal-blue), transparent);
             bottom: -25px;
             left: 50%;
             transform: translateX(-50%);
         }
 
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 60px;
+        /* Conteneur 3D pour les plats */
+        .dishes-3d-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            perspective: 2000px;
+            padding: 40px 20px;
         }
 
-        .menu-item {
-            background: linear-gradient(145deg, rgba(30, 30, 30, 0.9) 0%, rgba(20, 20, 20, 0.9) 100%);
-            border-radius: 2px;
+        .dish-card-3d {
+            width: 100%;
+            height: 600px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 150px;
+            cursor: pointer;
+        }
+
+        .dish-card-3d:hover {
+            transform: rotateY(15deg) translateZ(50px);
+        }
+
+        .dish-card-3d.flipped {
+            transform: rotateY(180deg) translateZ(50px);
+        }
+
+        .dish-front, .dish-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: 
-                0 25px 60px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(212, 175, 55, 0.1);
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform: translateY(100px) rotateX(10deg);
-            opacity: 0;
-            position: relative;
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                0 0 30px rgba(0, 180, 216, 0.3);
         }
 
-        .menu-item:before {
+        .dish-front {
+            background: linear-gradient(145deg, rgba(20, 20, 30, 0.9) 0%, rgba(10, 10, 20, 0.9) 100%);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dish-back {
+            background: linear-gradient(145deg, rgba(3, 4, 94, 0.95) 0%, rgba(0, 119, 182, 0.95) 100%);
+            transform: rotateY(180deg);
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .dish-image-container {
+            flex: 2;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dish-image-3d {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s;
+            filter: brightness(0.9) contrast(1.1);
+        }
+
+        .dish-card-3d:hover .dish-image-3d {
+            transform: scale(1.1);
+            filter: brightness(1) contrast(1.2);
+        }
+
+        .dish-name-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(3, 4, 94, 0.9), transparent);
+            padding: 40px;
+            color: white;
+        }
+
+        .dish-name {
+            font-size: 3rem;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+            color: var(--crystal-light);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .dish-price {
+            font-size: 2.2rem;
+            color: var(--gold-accent);
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .dish-flip-button {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 180, 216, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.5s;
+            z-index: 10;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dish-flip-button:hover {
+            background: rgba(0, 180, 216, 1);
+            transform: rotate(180deg) scale(1.1);
+            box-shadow: 0 0 25px rgba(0, 180, 216, 0.7);
+        }
+
+        /* Côté arrière - Ingrédients en 3D */
+        .ingredients-title {
+            font-size: 2.5rem;
+            color: var(--crystal-light);
+            margin-bottom: 40px;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .ingredients-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: var(--crystal-blue);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .ingredients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .ingredient-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.5s;
+            transform-style: preserve-3d;
+            transform: translateZ(20px);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ingredient-item::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(to right, var(--gold-primary), #B8860B, var(--gold-primary));
-            z-index: 2;
+            background: linear-gradient(to right, var(--crystal-blue), #0077B6);
         }
 
-        .menu-item.visible {
-            transform: translateY(0) rotateX(0);
-            opacity: 1;
-        }
-
-        .menu-item:hover {
-            transform: translateY(-25px) scale(1.02);
+        .ingredient-item:hover {
+            transform: translateZ(40px) rotateX(5deg);
             box-shadow: 
-                0 40px 80px rgba(0, 0, 0, 0.7),
-                0 0 0 1px rgba(212, 175, 55, 0.2),
-                0 0 30px rgba(212, 175, 55, 0.1);
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(0, 180, 216, 0.4);
         }
 
-        .menu-item-image {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            transition: transform 1s;
-            filter: brightness(0.8);
+        .ingredient-icon {
+            font-size: 2.5rem;
+            color: var(--crystal-blue);
+            margin-bottom: 15px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .menu-item:hover .menu-item-image {
-            transform: scale(1.1);
-            filter: brightness(1);
+        .ingredient-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--crystal-light);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
         }
 
-        .menu-item-content {
-            padding: 40px;
-            position: relative;
-        }
-
-        .menu-item h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--gold-primary);
-            letter-spacing: 2px;
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
-        }
-
-        .menu-item p {
-            color: var(--platinum);
-            margin-bottom: 25px;
-            line-height: 1.8;
-            font-size: 1.1rem;
-            font-weight: 300;
-        }
-
-        .price {
-            color: var(--gold-secondary);
-            font-weight: 400;
-            font-size: 1.8rem;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-            letter-spacing: 2px;
-            display: block;
-            text-align: right;
-            margin-top: 20px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            padding-top: 20px;
-        }
-
-        .menu-michelin {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(10, 10, 10, 0.8);
-            color: var(--gold-primary);
-            padding: 8px 15px;
+        .ingredient-origin {
             font-size: 0.9rem;
-            letter-spacing: 2px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            z-index: 3;
+            color: var(--platinum);
+            font-style: italic;
         }
 
-        /* Section À propos */
-        .about {
-            background-color: var(--black-luxe);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
-        }
-
-        .about-content {
-            display: flex;
-            align-items: center;
-            gap: 80px;
-        }
-
-        .about-text {
-            flex: 1;
-        }
-
-        .about-text h2 {
-            color: var(--gold-primary);
-            margin-bottom: 40px;
-        }
-
-        .about-text p {
-            margin-bottom: 30px;
-            line-height: 1.9;
+        .dish-description {
             font-size: 1.2rem;
-            font-weight: 300;
+            line-height: 1.8;
             color: var(--platinum);
-        }
-
-        .about-image {
-            flex: 1;
-            overflow: hidden;
-            box-shadow: 
-                0 35px 70px rgba(0, 0, 0, 0.6),
-                0 0 0 1px rgba(212, 175, 55, 0.1);
-            transform: rotateY(35deg) scale(0.9);
-            transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-        }
-
-        .about-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(212, 175, 55, 0.1), transparent);
-            z-index: 1;
-        }
-
-        .about-image.visible {
-            transform: rotateY(0) scale(1);
-        }
-
-        .about-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 1s;
-        }
-
-        .about-image:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Section Contact */
-        .contact {
-            background-color: var(--black-luxe);
-            position: relative;
-        }
-
-        .contact::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.04) 0%, transparent 50%),
-                radial-gradient(circle at 70% 60%, rgba(212, 175, 55, 0.04) 0%, transparent 50%);
-        }
-
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 80px;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 35px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            padding: 25px;
-            background: linear-gradient(145deg, rgba(30, 30, 30, 0.8) 0%, rgba(20, 20, 20, 0.8) 100%);
-            border-radius: 2px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            transition: all 0.6s;
-            transform: translateX(-80px);
-            opacity: 0;
-            border-left: 3px solid var(--gold-primary);
-        }
-
-        .contact-item.visible {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .contact-item:hover {
-            transform: translateX(15px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .contact-icon {
-            background: linear-gradient(145deg, var(--gold-primary) 0%, #B8860B 100%);
-            color: var(--black-luxe);
-            width: 70px;
-            height: 70px;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            flex-shrink: 0;
-            box-shadow: 0 10px 25px rgba(139, 69, 19, 0.4);
-        }
-
-        .contact-form {
-            background: linear-gradient(145deg, rgba(30, 30, 30, 0.9) 0%, rgba(20, 20, 20, 0.9) 100%);
-            padding: 60px;
-            border-radius: 2px;
-            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.4);
-            transform: translateX(80px);
-            opacity: 0;
-            transition: all 1.2s ease;
-            border-top: 3px solid var(--gold-primary);
-        }
-
-        .contact-form.visible {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .form-group {
-            margin-bottom: 30px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 400;
-            color: var(--gold-light);
-            letter-spacing: 1.5px;
-            font-size: 1.1rem;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 18px 22px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 0;
-            font-size: 1.1rem;
-            transition: all 0.4s;
-            background: rgba(40, 40, 40, 0.7);
-            color: var(--platinum);
-            font-family: 'Cormorant Garamond', serif;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            border-color: var(--gold-primary);
-            background: rgba(50, 50, 50, 0.9);
-            outline: none;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(to bottom, var(--black-luxe) 0%, #050505 100%);
-            color: var(--platinum);
-            padding: 100px 0 50px;
             text-align: center;
-            opacity: 0;
-            transform: translateY(80px);
-            transition: all 1.5s ease;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        footer.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 60px;
-            margin-bottom: 80px;
-        }
-
-        .footer-column {
-            flex: 1;
-            min-width: 280px;
-        }
-
-        .footer-column h3 {
-            color: var(--gold-primary);
-            margin-bottom: 30px;
-            font-size: 1.8rem;
-            letter-spacing: 3px;
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 1px;
-            background: var(--gold-primary);
-            bottom: 0;
-            left: 0;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
             margin-top: 30px;
+            padding: 0 20px;
+            font-weight: 300;
         }
 
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
+        /* Navigation entre les plats */
+        .dishes-navigation {
+            display: flex;
             justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .dish-nav-btn {
             width: 60px;
             height: 60px;
-            background: rgba(30, 30, 30, 0.8);
-            border-radius: 0;
-            color: var(--gold-light);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 50%;
+            background: rgba(0, 180, 216, 0.3);
+            border: 2px solid rgba(0, 180, 216, 0.5);
+            color: var(--crystal-light);
             font-size: 1.5rem;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            cursor: pointer;
+            transition: all 0.4s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .social-links a:hover {
-            background: var(--gold-primary);
-            color: var(--black-luxe);
-            transform: translateY(-10px) rotate(10deg);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-            border-color: var(--gold-primary);
+        .dish-nav-btn:hover {
+            background: rgba(0, 180, 216, 0.7);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 180, 216, 0.5);
         }
 
-        .copyright {
-            padding-top: 50px;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-            font-size: 1rem;
-            color: #888;
-            letter-spacing: 2px;
+        .dish-indicators {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
+        .dish-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0, 180, 216, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dish-indicator.active {
+            background: var(--crystal-blue);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.7);
+        }
+
+        /* Animation d'entrée des plats */
+        @keyframes dishEntrance {
+            0% {
                 opacity: 0;
-                transform: translateY(80px);
+                transform: translateY(100px) rotateX(-30deg);
             }
-            to {
+            100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) rotateX(0);
             }
+        }
+
+        .dish-card-3d.visible {
+            animation: dishEntrance 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* Effet de profondeur 3D */
+        .depth-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            transition: all 0.8s;
+        }
+
+        .depth-1 {
+            background: rgba(0, 180, 216, 0.05);
+            transform: translateZ(30px);
+        }
+
+        .depth-2 {
+            background: rgba(0, 180, 216, 0.03);
+            transform: translateZ(60px);
+        }
+
+        .dish-card-3d:hover .depth-1 {
+            transform: translateZ(50px);
+        }
+
+        .dish-card-3d:hover .depth-2 {
+            transform: translateZ(100px);
         }
 
         /* Responsive */
         @media (max-width: 1200px) {
-            .about-content {
-                flex-direction: column;
+            .dish-card-3d {
+                height: 550px;
             }
             
-            .hero h1 {
-                font-size: 4.5rem;
-            }
-            
-            .door-sign {
-                font-size: 3.5rem;
+            .ingredients-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 992px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 25px;
+            .dish-card-3d {
+                height: 500px;
+                margin-bottom: 100px;
             }
             
-            .nav-links {
-                width: 100%;
-                justify-content: space-between;
-                flex-wrap: wrap;
+            .dish-name {
+                font-size: 2.5rem;
             }
             
-            .nav-links li {
-                margin-left: 0;
+            .dish-price {
+                font-size: 1.8rem;
             }
             
-            .reservation-nav-btn {
-                margin-left: 0;
-                margin-top: 20px;
-            }
-            
-            .reservation-bar {
-                width: 350px;
-            }
-            
-            .section-title {
-                font-size: 3rem;
+            .ingredients-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
-            section {
-                padding: 150px 0 100px;
+            .dish-card-3d {
+                height: 450px;
             }
             
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-            
-            .hero h1 span {
+            .dish-name {
                 font-size: 2rem;
-                letter-spacing: 5px;
             }
             
-            .hero p {
-                font-size: 1.5rem;
+            .dish-back {
+                padding: 30px;
+            }
+            
+            .ingredients-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ingredients-title {
+                font-size: 2rem;
             }
             
             .section-title {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
-            .door-sign {
-                font-size: 2.5rem;
-                letter-spacing: 5px;
-            }
-            
-            .door-sign small {
+            .dish-flip-button {
+                top: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
                 font-size: 1.3rem;
-                letter-spacing: 8px;
-            }
-            
-            .menu-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-container {
-                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 576px) {
-            .nav-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
+            .dish-card-3d {
+                height: 400px;
             }
             
-            .hero h1 {
-                font-size: 2.8rem;
+            .dish-name-overlay {
+                padding: 20px;
             }
             
-            .door-sign {
-                font-size: 2rem;
-                letter-spacing: 3px;
+            .dish-name {
+                font-size: 1.8rem;
             }
             
-            .door-sign small {
-                font-size: 1rem;
-                letter-spacing: 4px;
+            .dish-price {
+                font-size: 1.5rem;
             }
             
-            .enter-btn {
-                padding: 18px 40px;
-                font-size: 1.2rem;
+            .dish-back {
+                padding: 20px;
             }
             
-            .reservation-bar {
-                width: 90%;
-                right: 5%;
-                left: 5%;
+            .ingredients-title {
+                font-size: 1.8rem;
             }
             
-            .contact-form {
-                padding: 40px 30px;
+            .ingredient-item {
+                padding: 20px 15px;
             }
+        }
+
+        /* Styles pour le reste du site */
+        .hero, .about, .contact {
+            padding: 180px 0 120px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(80px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+
+        .hero.visible, .about.visible, .contact.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Autres sections */
+        .hero {
+            background: 
+                linear-gradient(rgba(3, 4, 94, 0.85), rgba(0, 119, 182, 0.8)), 
+                url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(145deg, var(--crystal-blue) 0%, #0077B6 100%);
+            color: var(--white-luxe);
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.5s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+            font-family: 'Cormorant Garamond', serif;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background: linear-gradient(145deg, #00D4FF 0%, var(--crystal-blue) 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            letter-spacing: 3px;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Animation de la porte d'entrée luxueuse -->
+    <!-- Animation de la porte d'entrée cristal -->
     <div class="door-container" id="doorContainer">
         <div class="door-frame"></div>
         <div class="door" id="door">
             <div class="door-left">
-                <div class="door-ornament"></div>
+                <div class="door-crystal-effect"></div>
                 <div class="door-handle" id="leftHandle"></div>
             </div>
             <div class="door-right">
-                <div class="door-ornament"></div>
+                <div class="door-crystal-effect"></div>
                 <div class="door-handle" id="rightHandle"></div>
             </div>
             <div class="door-sign">
-                L'ÉTOILE D'OR
-                <small>RESTAURANT 3 ÉTOILES MICHELIN</small>
+                LE CRISTAL
+                <small>EXPÉRIENCE 3D CULINAIRE</small>
             </div>
         </div>
-        <button class="enter-btn" id="enterBtn">DÉCOUVRIR L'EXPÉRIENCE</button>
+        <button class="enter-btn" id="enterBtn">ENTRER DANS L'EXPÉRIENCE</button>
     </div>
 
-    <!-- Barre de réservation luxueuse -->
-    <div class="reservation-bar" id="reservationBar">
-        <button class="close-reservation-bar" id="closeReservationBar">&times;</button>
-        <h3>RÉSERVER VOTRE TABLE</h3>
-        <form class="reservation-form-compact" id="reservationFormCompact">
-            <input type="text" placeholder="Nom complet" required>
-            <input type="date" required>
-            <select required>
-                <option value="" disabled selected>Nombre de convives</option>
-                <option value="1">1 personne</option>
-                <option value="2">2 personnes</option>
-                <option value="3">3 personnes</option>
-                <option value="4">4 personnes</option>
-                <option value="5">5 personnes</option>
-                <option value="6">6 personnes</option>
-                <option value="7">7 personnes ou plus</option>
-            </select>
-            <select required>
-                <option value="" disabled selected>Service</option>
-                <option value="diner">Dîner (19h-22h30)</option>
-                <option value="dejeuner">Déjeuner (12h-14h30)</option>
-            </select>
-            <button type="submit" class="reservation-bar-btn">CONFIRMER LA RÉSERVATION</button>
-        </form>
-    </div>
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <div class="nav-container">
+            <div class="logo">LE CRISTAL</div>
+            <ul class="nav-links">
+                <li><a href="#hero">ACCUEIL</a></li>
+                <li><a href="#menu">EXPÉRIENCE 3D</a></li>
+                <li><a href="#reservation">RÉSERVER</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <!-- Contenu principal -->
-    <div class="main-content" id="mainContent">
-        <!-- Navigation -->
-        <nav id="mainNav">
-            <div class="nav-container">
-                <div class="logo">L'ÉTOILE D'OR<span>PARIS</span></div>
-                <ul class="nav-links">
-                    <li><a href="#hero">ACCUEIL</a></li>
-                    <li><a href="#menu">MENU DÉGUSTATION</a></li>
-                    <li><a href="#about">NOTRE HISTOIRE</a></li>
-                    <li><a href="#contact">CONTACT & RÉSERVATION</a></li>
-                </ul>
-                <button class="reservation-nav-btn" id="reservationNavBtn">RÉSERVER</button>
+    <!-- Section Hero -->
+    <section class="hero" id="hero">
+        <div class="section-container">
+            <div class="hero-content">
+                <h1 class="section-title">EXPÉRIENCE CULINAIRE 3D</h1>
+                <p style="font-size: 1.8rem; max-width: 900px; margin: 0 auto 50px; line-height: 1.6;">
+                    Découvrez une nouvelle dimension gastronomique où chaque plat devient une œuvre d'art en trois dimensions. 
+                    Plongez dans une expérience sensorielle unique où vous pouvez littéralement tourner autour de chaque création.
+                </p>
+                <a href="#menu" class="btn">EXPLORER LES CRÉATIONS 3D</a>
             </div>
-        </nav>
+        </div>
+    </section>
 
-        <!-- Section Hero -->
-        <section class="hero" id="hero">
-            <div class="section-container">
-                <div class="hero-content">
-                    <h1>L'ÉTOILE D'OR
-                        <span>EXCELLENCE GASTRONOMIQUE DEPUIS 1987</span>
-                    </h1>
-                    <p>Au cœur de Paris, découvrez une expérience culinaire transcendante où l'art, la tradition et l'innovation se rencontrent pour créer des moments inoubliables. Trois étoiles Michelin depuis 2005.</p>
-                    <a href="#menu" class="btn">EXPLORER LE MENU DÉGUSTATION</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Menu Luxueux -->
-        <section class="menu" id="menu">
-            <div class="section-container">
-                <h2 class="section-title">MENU DÉGUSTATION SIGNATURE</h2>
-                <div class="menu-grid">
-                    <!-- Plat 1 - Luxe -->
-                    <div class="menu-item">
-                        <div class="menu-michelin">⭐ RECOMMANDÉ PAR LE GUIDE</div>
-                        <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Caviar Osciètre" class="menu-item-image">
-                        <div class="menu-item-content">
-                            <h3>CAVIAR OSCIÈTRE IMPÉRIAL</h3>
-                            <p>Caviar Osciètre d'Aquitaine vieilli 8 ans, blinis à la fleur de sel, crème fraîche de Normandie et œufs de caille. Servi avec une vodka russe cristalline à -18°C.</p>
-                            <span class="price">320€</span>
-                        </div>
-                    </div>
-
-                    <!-- Plat 2 - Luxe -->
-                    <div class="menu-item">
-                        <div class="menu-michelin">⭐⭐ SPÉCIALITÉ DE LA MAISON</div>
-                        <img src="https://images.unsplash.com/photo-1584990347449-e6edcecc6d2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Homard Bleu" class="menu-item-image">
-                        <div class="menu-item-content">
-                            <h3>HOMARD BLEU DE BRETAGNE</h3>
-                            <p>Homard bleu breton entier rôti au beurre blanc truffé, risotto au safran d'Iran et émulsion au cognac XO. Accompagné de légumes oubliés de la Vallée de la Loire.</p>
-                            <span class="price">280€</span>
-                        </div>
-                    </div>
-
-                    <!-- Plat 3 - Luxe -->
-                    <div class="menu-item">
-                        <div class="menu-michelin">⭐ INNOVATION 2024</div>
-                        <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Wagyu A5" class="menu-item-image">
-                        <div class="menu-item-content">
-                            <h3>WAGYU A5 DE KOBE</h3>
-                            <p>Filet de bœuf Wagyu A5 de Kobe (marbrure 12+), vieilli 45 jours, sauce au vin de Porto vintage 1977, truffe noire du Périgord et pommes de terre rattes confites au foie gras.</p>
-                            <span class="price">450€</span>
-                        </div>
-                    </div>
-
-                    <!-- Plat 4 - Luxe -->
-                    <div class="menu-item">
-                        <div class="menu-michelin">⭐⭐ DÉCouverte</div>
-                        <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Dessert Or" class="menu-item">
-                        <div class="menu-item-content">
-                            <h3>SUPRÊME CHOCOLAT & OR 24 CARATS</h3>
-                            <p>Sphère de chocolat Grand Cru Venezuela 75%, cœur coulant à la vanille de Tahiti, glace à la feuille d'or 24 carats et croustillant praliné. Présenté avec un cognac Louis XIII.</p>
-                            <span class="price">190€</span>
-                        </div>
-                    </div>
-
-                    <!-- Plat 5 - Luxe -->
-                    <div class="menu-item">
-                        <div class="menu-michelin">⭐ TRUFFE D'ALBA</div>
-                        <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Truffe Blanche" class="menu-item-image">
-                        <div class="menu-item-content">
-                            <h3>TRUFFE BLANCHE D'ALBA</h3>
-                            <p>Tranches généreuses de truffe blanche d'Alba sur tagliatelles fraîches aux œufs de poules élevées en liberté, beurre noisette et parmesan Reggiano 36 mois d'affinage.</p>
-                            <span class="price">380€</span>
-                        </div>
-                    </div>
-
-                    <!-- Plat 6 - Luxe -->
-                    <div class="menu-item">
-                        <div class="menu-michelin">⭐⭐⭐ SIGNATURE DU CHEF</div>
-                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1365&q=80" alt="Menu Dégustation" class="menu-item-image">
-                        <div class="menu-item-content">
-                            <h3>MENU DÉGUSTATION "ÉTOILE D'OR"</h3>
-                            <p>Expérience culinaire complète en 12 services incluant nos créations signature, accords mets-vins exceptionnels (Château Margaux 1990, Domaine de la Romanée-Conti) et digestifs rares.</p>
-                            <span class="price">950€ PAR PERSONNE</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section À propos -->
-        <section class="about" id="about">
-            <div class="section-container">
-                <div class="about-content">
-                    <div class="about-text">
-                        <h2 class="section-title">NOTRE HISTOIRE D'EXCELLENCE</h2>
-                        <p>Fondé en 1987 par le chef étoilé Gérard Dubois, L'Étoile d'Or est rapidement devenu un temple de la gastronomie française. En 2005, nous avons obtenu notre troisième étoile Michelin, distinction que nous conservons avec fierté depuis.</p>
-                        <p>Notre philosophie repose sur l'excellence absolue : produits d'exception provenant des fournisseurs les plus prestigieux, techniques culinaires innovantes et service d'une perfection rare. Chaque plat est une œuvre d'art, chaque visite une expérience sensorielle unique.</p>
-                        <p>Notre cave à vin, récompensée par le prestigieux "Grand Award", compte plus de 4 000 références dont des pièces rares datant du XVIIIe siècle. Notre sommelier, formé à l'école de Bordeaux, vous guidera vers les accords parfaits.</p>
-                        <a href="#contact" class="btn">EXPÉRIENCE PRIVÉE SUR MESURE</a>
-                    </div>
-                    <div class="about-image" id="aboutImage">
-                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Salle à manger luxueuse">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Contact -->
-        <section class="contact" id="contact">
-            <div class="section-container">
-                <h2 class="section-title">RÉSERVER VOTRE EXPÉRIENCE</h2>
-                <div class="contact-container">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <h3>ADRESSE PRESTIGIEUSE</h3>
-                                <p>15 Avenue Montaigne, 75008 Paris<br>
-                                <em>Au cœur du Triangle d'Or</em></p>
+    <!-- Section Menu 3D -->
+    <section class="menu" id="menu">
+        <div class="section-container">
+            <h2 class="section-title">NOS CRÉATIONS 3D</h2>
+            
+            <div class="dishes-3d-container">
+                <!-- Plat 1 - Sphère Cristal -->
+                <div class="dish-card-3d visible" id="dish1">
+                    <div class="depth-layer depth-1"></div>
+                    <div class="depth-layer depth-2"></div>
+                    
+                    <!-- Face avant -->
+                    <div class="dish-front">
+                        <div class="dish-image-container">
+                            <img src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                                 alt="Sphère Cristal" class="dish-image-3d">
+                            <div class="dish-name-overlay">
+                                <div class="dish-name">SPHÈRE CRISTAL DE TRUFFE</div>
+                                <div class="dish-price">295€</div>
                             </div>
                         </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div>
-                                <h3>CONCIERGERIE PRIVÉE</h3>
-                                <p>+33 1 47 20 00 98<br>
-                                <em>Disponible 24h/24 pour les réservations exceptionnelles</em></p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div>
-                                <h3>DIRECTION GÉNÉRALE</h3>
-                                <p>direction@etoiledor-paris.fr<br>
-                                <em>Pour les demandes corporatives et événements privés</em></p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div>
-                                <h3>HORAIRES D'EXCELLENCE</h3>
-                                <p>Dîner : 19h00 - 22h30 (dernier service)<br>
-                                Déjeuner : 12h00 - 14h30 (uniquement sur réservation)<br>
-                                Fermé le dimanche et lundi</p>
-                            </div>
+                        <div class="dish-flip-button" onclick="flipDish('dish1')">
+                            <i class="fas fa-sync-alt"></i>
                         </div>
                     </div>
-                    <div class="contact-form" id="reservation">
-                        <form id="reservationForm">
-                            <div class="form-group">
-                                <label for="name">NOM COMPLET *</label>
-                                <input type="text" id="name" required placeholder="Votre nom">
+                    
+                    <!-- Face arrière - Ingrédients -->
+                    <div class="dish-back">
+                        <h3 class="ingredients-title">INGRÉDIENTS EXCEPTIONNELS</h3>
+                        <div class="ingredients-grid">
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                                <div class="ingredient-name">Truffe Noire</div>
+                                <div class="ingredient-origin">Périgord, France</div>
                             </div>
-                            <div class="form-group">
-                                <label for="email">ADRESSE EMAIL *</label>
-                                <input type="email" id="email" required placeholder="email@exemple.com">
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-fish"></i>
+                                </div>
+                                <div class="ingredient-name">Caviar Osciètre</div>
+                                <div class="ingredient-origin">Aquitaine, France</div>
                             </div>
-                            <div class="form-group">
-                                <label for="phone">TÉLÉPHONE *</label>
-                                <input type="tel" id="phone" required placeholder="+33 1 23 45 67 89">
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-wine-bottle"></i>
+                                </div>
+                                <div class="ingredient-name">Champagne Krug</div>
+                                <div class="ingredient-origin">Clos du Mesnil, 2004</div>
                             </div>
-                            <div class="form-group">
-                                <label for="date">DATE SOUHAITÉE *</label>
-                                <input type="date" id="date" required>
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                                <div class="ingredient-name">Or 24 Carats</div>
+                                <div class="ingredient-origin">Comestible</div>
                             </div>
-                            <div class="form-group">
-                                <label for="guests">NOMBRE DE CONVIVES *</label>
-                                <select id="guests" required>
-                                    <option value="" disabled selected>Sélectionnez</option>
-                                    <option value="1">1 personne</option>
-                                    <option value="2">2 personnes</option>
-                                    <option value="3">3 personnes</option>
-                                    <option value="4">4 personnes</option>
-                                    <option value="5">5 personnes</option>
-                                    <option value="6">6 personnes</option>
-                                    <option value="private">Salle privée (7-12 personnes)</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="occasion">OCCASION SPÉCIALE</label>
-                                <select id="occasion">
-                                    <option value="" selected>Standard</option>
-                                    <option value="anniversary">Anniversaire</option>
-                                    <option value="proposal">Demande en mariage</option>
-                                    <option value="business">Dîner d'affaires</option>
-                                    <option value="celebration">Célébration</option>
-                                    <option value="other">Autre</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">DEMANDES PARTICULIÈRES</label>
-                                <textarea id="message" rows="4" placeholder="Allergies, menu dégustation, accords mets-vins premium..."></textarea>
-                            </div>
-                            <button type="submit" class="btn">SOUMETTRE LA DEMANDE DE RÉSERVATION</button>
-                            <p style="margin-top: 20px; font-size: 0.9rem; color: #aaa; text-align: center;">
-                                Notre équipe de conciergerie vous contactera sous 24h pour confirmer votre réservation.
-                            </p>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer id="mainFooter">
-            <div class="section-container">
-                <div class="footer-content">
-                    <div class="footer-column">
-                        <h3>L'ÉTOILE D'OR</h3>
-                        <p>Trois étoiles Michelin depuis 2005. Temple de la gastronomie française où l'excellence est une tradition depuis 1987.</p>
-                        <p style="margin-top: 20px; font-style: italic; color: var(--gold-light);">
-                            "La cuisine est l'art de transformer instantanément en bonheur des produits qui ont mis la terre entière à les produire."<br>
-                            <span style="font-size: 0.9rem;">- Chef Gérard Dubois</span>
+                        </div>
+                        <p class="dish-description">
+                            Une sphère translucide éclatant à la cuillère pour révéler un cœur de truffe noire du Périgord, 
+                            caviar Osciètre et émulsion au Champagne Krug 2004, feuille d'or comestible.
                         </p>
                     </div>
-                    <div class="footer-column">
-                        <h3>INFORMATIONS</h3>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="margin-bottom: 12px;"><a href="#hero" style="color: #ddd; text-decoration: none; transition: color 0.3s;">ACCUEIL</a></li>
-                            <li style="margin-bottom: 12px;"><a href="#menu" style="color: #ddd; text-decoration: none; transition: color 0.3s;">MENU DÉGUSTATION</a></li>
-                            <li style="margin-bottom: 12px;"><a href="#about" style="color: #ddd; text-decoration: none; transition: color 0.3s;">NOTRE HISTOIRE</a></li>
-                            <li style="margin-bottom: 12px;"><a href="#contact" style="color: #ddd; text-decoration: none; transition: color 0.3s;">CONTACT & RÉSERVATION</a></li>
-                            <li style="margin-bottom: 12px;"><a href="#private" style="color: #ddd; text-decoration: none; transition: color 0.3s;">ÉVÉNEMENTS PRIVÉS</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h3>NOUS SUIVRE</h3>
-                        <p>Rejoignez notre cercle d'amateurs de gastronomie et soyez les premiers informés de nos créations exclusives.</p>
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-tripadvisor"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="far fa-envelope"></i></a>
+                </div>
+
+                <!-- Plat 2 - Volcan de Wagyu -->
+                <div class="dish-card-3d" id="dish2">
+                    <div class="depth-layer depth-1"></div>
+                    <div class="depth-layer depth-2"></div>
+                    
+                    <!-- Face avant -->
+                    <div class="dish-front">
+                        <div class="dish-image-container">
+                            <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                                 alt="Volcan de Wagyu" class="dish-image-3d">
+                            <div class="dish-name-overlay">
+                                <div class="dish-name">VOLCAN DE WAGYU A5</div>
+                                <div class="dish-price">420€</div>
+                            </div>
+                        </div>
+                        <div class="dish-flip-button" onclick="flipDish('dish2')">
+                            <i class="fas fa-sync-alt"></i>
                         </div>
                     </div>
+                    
+                    <!-- Face arrière - Ingrédients -->
+                    <div class="dish-back">
+                        <h3 class="ingredients-title">COMPOSITION DU VOLCAN</h3>
+                        <div class="ingredients-grid">
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-fire"></i>
+                                </div>
+                                <div class="ingredient-name">Wagyu A5</div>
+                                <div class="ingredient-origin">Kobe, Japon</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-wine-glass-alt"></i>
+                                </div>
+                                <div class="ingredient-name">Saké Daiginjo</div>
+                                <div class="ingredient-origin">Préfecture de Hyogo</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <div class="ingredient-name">Wasabi Frais</div>
+                                <div class="ingredient-origin">Île de Hokkaido</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-pepper-hot"></i>
+                                </div>
+                                <div class="ingredient-name">Fleurs de Sel</div>
+                                <div class="ingredient-origin">Guérande, France</div>
+                            </div>
+                        </div>
+                        <p class="dish-description">
+                            Filet de Wagyu A5 de Kobe (marbrure 12+), flambé au Saké Daiginjo, servi avec une "lave" de sauce 
+                            au poivre de Tasmanie et fleur de sel de Guérande. Éruption garantie.
+                        </p>
+                    </div>
                 </div>
-                <div class="copyright">
-                    <p>&copy; 2024 L'ÉTOILE D'OR. TOUS DROITS RÉSERVÉS. | 3 ÉTOILES MICHELIN | MEMBRE DES GRANDES TABLES DU MONDE</p>
-                    <p style="margin-top: 15px; font-size: 0.9rem;">15 Avenue Montaigne, 75008 Paris | Tél: +33 1 47 20 00 98</p>
+
+                <!-- Plat 3 - Architecture de Homard -->
+                <div class="dish-card-3d" id="dish3">
+                    <div class="depth-layer depth-1"></div>
+                    <div class="depth-layer depth-2"></div>
+                    
+                    <!-- Face avant -->
+                    <div class="dish-front">
+                        <div class="dish-image-container">
+                            <img src="https://images.unsplash.com/photo-1584990347449-e6edcecc6d2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                                 alt="Architecture de Homard" class="dish-image-3d">
+                            <div class="dish-name-overlay">
+                                <div class="dish-name">ARCHITECTURE DE HOMARD</div>
+                                <div class="dish-price">320€</div>
+                            </div>
+                        </div>
+                        <div class="dish-flip-button" onclick="flipDish('dish3')">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Face arrière - Ingrédients -->
+                    <div class="dish-back">
+                        <h3 class="ingredients-title">STRUCTURE GÉOMÉTRIQUE</h3>
+                        <div class="ingredients-grid">
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-dharmachakra"></i>
+                                </div>
+                                <div class="ingredient-name">Homard Bleu</div>
+                                <div class="ingredient-origin">Bretagne, France</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-cube"></i>
+                                </div>
+                                <div class="ingredient-name">Géométrie de Légumes</div>
+                                <div class="ingredient-origin">Jardins de Provence</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                                <div class="ingredient-name">Beurre de Corail</div>
+                                <div class="ingredient-origin">Corail de Homard</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-wine-bottle"></i>
+                                </div>
+                                <div class="ingredient-name">Chablis Grand Cru</div>
+                                <div class="ingredient-origin">Domaine Raveneau</div>
+                            </div>
+                        </div>
+                        <p class="dish-description">
+                            Construction architecturale de homard bleu breton, légumes géométriques, beurre de corail mousseux 
+                            et émulsion au Chablis Grand Cru. Une expérience structurale en bouche.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Plat 4 - Galaxie de Chocolat -->
+                <div class="dish-card-3d" id="dish4">
+                    <div class="depth-layer depth-1"></div>
+                    <div class="depth-layer depth-2"></div>
+                    
+                    <!-- Face avant -->
+                    <div class="dish-front">
+                        <div class="dish-image-container">
+                            <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                                 alt="Galaxie de Chocolat" class="dish-image-3d">
+                            <div class="dish-name-overlay">
+                                <div class="dish-name">GALAXIE DE CHOCOLAT</div>
+                                <div class="dish-price">180€</div>
+                            </div>
+                        </div>
+                        <div class="dish-flip-button" onclick="flipDish('dish4')">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Face arrière - Ingrédients -->
+                    <div class="dish-back">
+                        <h3 class="ingredients-title">CONSTELLATION GOURMANDE</h3>
+                        <div class="ingredients-grid">
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="ingredient-name">Chocolat Grand Cru</div>
+                                <div class="ingredient-origin">Venezuela 75%</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-moon"></i>
+                                </div>
+                                <div class="ingredient-name">Or Comestible</div>
+                                <div class="ingredient-origin">Feuille 24 carats</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-cloud"></i>
+                                </div>
+                                <div class="ingredient-name">Azote Liquide</div>
+                                <div class="ingredient-origin">-196°C</div>
+                            </div>
+                            <div class="ingredient-item">
+                                <div class="ingredient-icon">
+                                    <i class="fas fa-wine-bottle"></i>
+                                </div>
+                                <div class="ingredient-name">Cognac Louis XIII</div>
+                                <div class="ingredient-origin">Remy Martin</div>
+                            </div>
+                        </div>
+                        <p class="dish-description">
+                            Sphères de chocolat Grand Cru éclatées à table, nuage d'azote liquide créant une galaxie fumante, 
+                            étoiles en or comestible et accompagnement d'un cognac Louis XIII pour un voyage interstellaire.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </footer>
+
+            <!-- Navigation entre les plats -->
+            <div class="dishes-navigation">
+                <button class="dish-nav-btn" onclick="prevDish()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="dish-indicators">
+                    <div class="dish-indicator active" onclick="showDish(0)"></div>
+                    <div class="dish-indicator" onclick="showDish(1)"></div>
+                    <div class="dish-indicator" onclick="showDish(2)"></div>
+                    <div class="dish-indicator" onclick="showDish(3)"></div>
+                </div>
+                
+                <button class="dish-nav-btn" onclick="nextDish()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Réservation -->
+    <section class="contact" id="reservation">
+        <div class="section-container">
+            <h2 class="section-title">RÉSERVER L'EXPÉRIENCE</h2>
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <p style="font-size: 1.5rem; margin-bottom: 50px; line-height: 1.7;">
+                    Préparez-vous à une expérience culinaire révolutionnaire où chaque plat est une œuvre d'art en 3D. 
+                    Notre chef étoilé Michelin vous attend pour un voyage sensoriel unique.
+                </p>
+                <a href="tel:+33147200098" class="btn" style="margin: 10px;">
+                    <i class="fas fa-phone" style="margin-right: 10px;"></i>
+                    RÉSERVER PAR TÉLÉPHONE
+                </a>
+                <button class="btn" onclick="openReservationModal()" style="margin: 10px;">
+                    <i class="fas fa-calendar-alt" style="margin-right: 10px;"></i>
+                    RÉSERVER EN LIGNE
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de réservation -->
+    <div id="reservationModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 4, 94, 0.95); z-index: 2000; align-items: center; justify-content: center;">
+        <div style="background: linear-gradient(145deg, rgba(0, 119, 182, 0.9) 0%, rgba(3, 4, 94, 0.9) 100%); padding: 60px; border-radius: 20px; max-width: 600px; width: 90%; position: relative;">
+            <button onclick="closeReservationModal()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: white; font-size: 2rem; cursor: pointer;">&times;</button>
+            <h3 style="font-size: 2.5rem; margin-bottom: 30px; color: var(--crystal-light); text-align: center;">RÉSERVATION 3D</h3>
+            <form id="reservationForm3D" style="display: flex; flex-direction: column; gap: 20px;">
+                <input type="text" placeholder="Nom complet" required style="padding: 18px; border: 2px solid rgba(0, 180, 216, 0.3); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1.1rem; border-radius: 10px;">
+                <input type="email" placeholder="Email" required style="padding: 18px; border: 2px solid rgba(0, 180, 216, 0.3); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1.1rem; border-radius: 10px;">
+                <input type="date" required style="padding: 18px; border: 2px solid rgba(0, 180, 216, 0.3); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1.1rem; border-radius: 10px;">
+                <select required style="padding: 18px; border: 2px solid rgba(0, 180, 216, 0.3); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1.1rem; border-radius: 10px;">
+                    <option value="" disabled selected>Nombre de personnes</option>
+                    <option value="1">1 personne</option>
+                    <option value="2">2 personnes</option>
+                    <option value="3">3 personnes</option>
+                    <option value="4">4 personnes</option>
+                    <option value="5">5 personnes</option>
+                    <option value="6">6 personnes</option>
+                </select>
+                <textarea placeholder="Demandes particulières" rows="4" style="padding: 18px; border: 2px solid rgba(0, 180, 216, 0.3); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1.1rem; border-radius: 10px;"></textarea>
+                <button type="submit" class="btn" style="width: 100%; margin-top: 20px;">CONFIRMER LA RÉSERVATION</button>
+            </form>
+        </div>
     </div>
 
     <script>
-        // Animation de la porte d'entrée luxueuse
+        // Animation de la porte d'entrée
         document.addEventListener('DOMContentLoaded', function() {
             const doorContainer = document.getElementById('doorContainer');
             const door = document.getElementById('door');
             const enterBtn = document.getElementById('enterBtn');
             const leftHandle = document.getElementById('leftHandle');
             const rightHandle = document.getElementById('rightHandle');
-            const mainContent = document.getElementById('mainContent');
             const mainNav = document.getElementById('mainNav');
-            const reservationBar = document.getElementById('reservationBar');
-            const reservationNavBtn = document.getElementById('reservationNavBtn');
-            const closeReservationBar = document.getElementById('closeReservationBar');
-            const reservationFormCompact = document.getElementById('reservationFormCompact');
             
-            // Effet de brillance sur la porte au chargement
-            setTimeout(() => {
-                door.style.boxShadow = "0 0 100px rgba(212, 175, 55, 0.3)";
-                setTimeout(() => {
-                    door.style.boxShadow = "none";
-                }, 1000);
-            }, 500);
-            
-            // Animation automatique de la porte après 1 seconde
+            // Animation automatique de la porte
             setTimeout(() => {
                 door.classList.add('open');
                 
@@ -1520,250 +1144,161 @@
             
             // Bouton pour entrer sur le site
             enterBtn.addEventListener('click', enterSite);
-            
-            // Poignées de porte pour entrer
             leftHandle.addEventListener('click', enterSite);
             rightHandle.addEventListener('click', enterSite);
             
             function enterSite() {
-                // Animation supplémentaire de la porte
                 door.style.transform = 'scale(1.15)';
                 door.style.transition = 'transform 1.2s cubic-bezier(0.77, 0, 0.175, 1)';
                 
-                // Effet de lumière
-                doorContainer.style.background = 'radial-gradient(ellipse at center, #2a2a2a 0%, #000000 100%)';
-                
                 setTimeout(() => {
                     doorContainer.classList.add('hidden');
-                    mainContent.classList.add('visible');
                     mainNav.classList.add('visible');
                     
-                    // Faire défiler vers le haut
+                    // Animation des sections
+                    const sections = document.querySelectorAll('section');
+                    sections.forEach((section, index) => {
+                        setTimeout(() => {
+                            section.classList.add('visible');
+                        }, index * 300);
+                    });
+                    
                     window.scrollTo({top: 0, behavior: 'smooth'});
-                    
-                    // Afficher la barre de réservation après un délai
-                    setTimeout(() => {
-                        reservationBar.classList.add('active');
-                    }, 1800);
-                    
-                    // Animation des sections au défilement
-                    initScrollAnimations();
                 }, 1200);
             }
             
-            // Gestion de la barre de réservation
-            reservationNavBtn.addEventListener('click', function() {
-                reservationBar.classList.add('active');
-            });
+            // Gestion de la navigation 3D des plats
+            window.currentDishIndex = 0;
+            const dishes = document.querySelectorAll('.dish-card-3d');
+            const indicators = document.querySelectorAll('.dish-indicator');
             
-            closeReservationBar.addEventListener('click', function() {
-                reservationBar.classList.remove('active');
-            });
-            
-            // Formulaire de réservation compact
-            reservationFormCompact.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Récupération des valeurs du formulaire
-                const name = this.querySelector('input[type="text"]').value;
-                const date = this.querySelector('input[type="date"]').value;
-                const guests = this.querySelector('select').value;
-                const service = this.querySelectorAll('select')[1].value;
-                
-                // Message de confirmation luxueux
-                const serviceText = service === 'diner' ? 'Dîner (19h-22h30)' : 'Déjeuner (12h-14h30)';
-                alert(`MONSIEUR/MADAME ${name.toUpperCase()},\n\nVOTRE DEMANDE DE RÉSERVATION POUR LE ${date} POUR ${guests} CONVIVE(S) AU SERVICE ${serviceText} A ÉTÉ ENREGISTRÉE.\n\nNOTRE CONCIERGERIE VOUS CONTACTERA DANS LES PROCHAINES 24 HEURES POUR CONFIRMER VOTRE RÉSERVATION.\n\nL'ÉQUIPE DE L'ÉTOILE D'OR VOUS REMERCIE DE VOTRE CONFIANCE.`);
-                
-                // Réinitialisation du formulaire et fermeture de la barre
-                reservationFormCompact.reset();
-                reservationBar.classList.remove('active');
-            });
-            
-            // Animation des éléments au défilement
-            function initScrollAnimations() {
-                const sections = document.querySelectorAll('section');
-                const menuItems = document.querySelectorAll('.menu-item');
-                const contactItems = document.querySelectorAll('.contact-item');
-                const contactForm = document.querySelector('.contact-form');
-                const aboutImage = document.getElementById('aboutImage');
-                const footer = document.getElementById('mainFooter');
-                
-                const observerOptions = {
-                    threshold: 0.15,
-                    rootMargin: '0px 0px -150px 0px'
-                };
-                
-                const sectionObserver = new IntersectionObserver(function(entries) {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            setTimeout(() => {
-                                entry.target.classList.add('visible');
-                            }, 300);
-                        }
-                    });
-                }, observerOptions);
-                
-                // Observer chaque section
-                sections.forEach(section => {
-                    sectionObserver.observe(section);
+            // Fonction pour montrer un plat spécifique
+            window.showDish = function(index) {
+                // Cacher tous les plats
+                dishes.forEach(dish => {
+                    dish.style.display = 'none';
+                    dish.classList.remove('visible');
                 });
                 
-                // Observer les éléments du menu avec délai séquentiel
-                const menuObserver = new IntersectionObserver(function(entries) {
-                    entries.forEach((entry, index) => {
-                        if (entry.isIntersecting) {
-                            setTimeout(() => {
-                                entry.target.classList.add('visible');
-                            }, index * 250);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                
-                menuItems.forEach(item => {
-                    menuObserver.observe(item);
+                // Réinitialiser tous les indicateurs
+                indicators.forEach(indicator => {
+                    indicator.classList.remove('active');
                 });
                 
-                // Observer les éléments de contact
-                const contactObserver = new IntersectionObserver(function(entries) {
-                    entries.forEach((entry, index) => {
-                        if (entry.isIntersecting) {
-                            setTimeout(() => {
-                                entry.target.classList.add('visible');
-                            }, index * 200);
-                        }
-                    });
-                }, { threshold: 0.1 });
+                // Afficher le plat sélectionné
+                window.currentDishIndex = index;
+                dishes[index].style.display = 'block';
                 
-                contactItems.forEach(item => {
-                    contactObserver.observe(item);
-                });
+                // Animation d'entrée
+                setTimeout(() => {
+                    dishes[index].classList.add('visible');
+                }, 50);
                 
-                // Observer le formulaire de contact
-                const formObserver = new IntersectionObserver(function(entries) {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            setTimeout(() => {
-                                entry.target.classList.add('visible');
-                            }, 800);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                
-                formObserver.observe(contactForm);
-                
-                // Observer l'image "about"
-                const aboutObserver = new IntersectionObserver(function(entries) {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                        }
-                    });
-                }, { threshold: 0.1 });
-                
-                aboutObserver.observe(aboutImage);
-                
-                // Observer le footer
-                const footerObserver = new IntersectionObserver(function(entries) {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                        }
-                    });
-                }, { threshold: 0.1 });
-                
-                footerObserver.observe(footer);
+                // Activer l'indicateur correspondant
+                indicators[index].classList.add('active');
             }
             
-            // Gestion du formulaire de réservation principal
-            const reservationForm = document.getElementById('reservationForm');
+            // Navigation précédente/suivante
+            window.prevDish = function() {
+                let newIndex = window.currentDishIndex - 1;
+                if (newIndex < 0) newIndex = dishes.length - 1;
+                showDish(newIndex);
+            }
             
-            reservationForm.addEventListener('submit', function(e) {
+            window.nextDish = function() {
+                let newIndex = window.currentDishIndex + 1;
+                if (newIndex >= dishes.length) newIndex = 0;
+                showDish(newIndex);
+            }
+            
+            // Fonction pour retourner un plat
+            window.flipDish = function(dishId) {
+                const dish = document.getElementById(dishId);
+                dish.classList.toggle('flipped');
+            }
+            
+            // Initialiser le premier plat
+            showDish(0);
+            
+            // Ajouter des événements pour les flèches du clavier
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') prevDish();
+                if (e.key === 'ArrowRight') nextDish();
+                if (e.key === ' ') {
+                    e.preventDefault();
+                    flipDish('dish' + (window.currentDishIndex + 1));
+                }
+            });
+            
+            // Modal de réservation
+            window.openReservationModal = function() {
+                document.getElementById('reservationModal').style.display = 'flex';
+            }
+            
+            window.closeReservationModal = function() {
+                document.getElementById('reservationModal').style.display = 'none';
+            }
+            
+            // Formulaire de réservation
+            document.getElementById('reservationForm3D').addEventListener('submit', function(e) {
                 e.preventDefault();
-                
-                // Récupération des valeurs du formulaire
-                const name = document.getElementById('name').value;
-                const date = document.getElementById('date').value;
-                const guests = document.getElementById('guests').value;
-                const occasion = document.getElementById('occasion').value;
-                
-                // Message de confirmation luxueux
-                const occasionText = occasion ? `OCCASION: ${occasion.toUpperCase()}` : 'OCCASION STANDARD';
-                alert(`MONSIEUR/MADAME ${name.toUpperCase()},\n\nVOTRE DEMANDE DE RÉSERVATION EXCEPTIONNELLE A ÉTÉ ENREGISTRÉE AVEC SUCCÈS.\n\nDÉTAILS:\n- DATE: ${date}\n- NOMBRE DE CONVIVES: ${guests}\n- ${occasionText}\n\nNOTRE DIRECTRICE DE CLIENTÈLE VOUS CONTACTERA PERSONNELLEMENT DANS LES PROCHAINES 24 HEURES POUR FINALISER VOTRE EXPÉRIENCE SUR MESURE.\n\nNOUS VOUS REMERCIONS DE VOTRE CONFIANCE ET AVONS HÂTE DE VOUS ACCUEILLIR AU SEIN DE NOTRE ÉTABLISSEMENT.\n\nBIEN CORDIALEMENT,\nL'ÉQUIPE DE L'ÉTOILE D'OR`);
-                
-                // Réinitialisation du formulaire
-                reservationForm.reset();
+                alert('Votre demande de réservation pour l\'expérience 3D a été envoyée. Notre équipe vous contactera dans les plus brefs délais.');
+                closeReservationModal();
+                this.reset();
             });
             
-            // Navigation fluide
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    // Ne pas appliquer pour les liens dans la navigation pendant l'animation de la porte
-                    if (!doorContainer.classList.contains('hidden')) return;
-                    
-                    const targetId = this.getAttribute('href');
-                    
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        e.preventDefault();
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 120,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Fermer la barre de réservation si elle est ouverte
-                        reservationBar.classList.remove('active');
-                    }
-                });
-            });
-            
-            // Date minimum pour le formulaire de réservation (aujourd'hui)
+            // Date minimum pour la réservation
             const today = new Date().toISOString().split('T')[0];
-            document.getElementById('date').min = today;
-            reservationFormCompact.querySelector('input[type="date"]').min = today;
+            document.querySelector('#reservationModal input[type="date"]').min = today;
             
-            // Effet de parallaxe sur la section hero
+            // Effet de parallaxe
             window.addEventListener('scroll', function() {
                 const scrolled = window.pageYOffset;
-                const hero = document.getElementById('hero');
+                const menuSection = document.getElementById('menu');
                 
-                if (hero) {
-                    hero.style.backgroundPosition = `center ${scrolled * 0.4}px`;
-                }
-                
-                // Effet sur la navigation
-                if (scrolled > 100) {
-                    mainNav.style.background = 'linear-gradient(to bottom, rgba(10, 10, 10, 0.98) 0%, rgba(10, 10, 10, 0.95) 100%)';
-                } else {
-                    mainNav.style.background = 'linear-gradient(to bottom, rgba(10, 10, 10, 0.98) 0%, transparent 100%)';
+                if (menuSection) {
+                    const dishesContainer = document.querySelector('.dishes-3d-container');
+                    const yPos = -(scrolled * 0.1);
+                    dishesContainer.style.transform = `translateY(${yPos}px)`;
                 }
             });
             
-            // Effet de brillance sur les éléments au survol
-            function initLuxeHoverEffects() {
-                const luxeElements = document.querySelectorAll('.menu-item, .btn, .contact-item, .social-links a');
-                
-                luxeElements.forEach((element) => {
-                    element.addEventListener('mouseenter', function() {
-                        this.style.boxShadow = this.style.boxShadow + ', 0 0 30px rgba(212, 175, 55, 0.3)';
-                    });
-                    
-                    element.addEventListener('mouseleave', function() {
-                        this.style.boxShadow = this.style.boxShadow.replace(', 0 0 30px rgba(212, 175, 55, 0.3)', '');
-                    });
+            // Animation des ingrédients au survol
+            const ingredientItems = document.querySelectorAll('.ingredient-item');
+            ingredientItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateZ(50px) rotateX(10deg)';
                 });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateZ(20px) rotateX(0)';
+                });
+            });
+            
+            // Effet de rotation automatique des plats
+            let autoRotateInterval;
+            
+            function startAutoRotate() {
+                autoRotateInterval = setInterval(() => {
+                    if (!document.querySelector('.dish-card-3d.flipped')) {
+                        nextDish();
+                    }
+                }, 8000); // Change de plat toutes les 8 secondes
             }
             
-            // Initialiser les effets de survol après l'entrée
-            setTimeout(initLuxeHoverEffects, 2500);
+            function stopAutoRotate() {
+                clearInterval(autoRotateInterval);
+            }
             
-            // Effet de texte qui apparaît sur la porte
-            const doorSign = document.querySelector('.door-sign');
-            setTimeout(() => {
-                doorSign.style.animation = 'luxeGlow 3s infinite alternate';
-            }, 1500);
+            // Démarrer la rotation automatique
+            startAutoRotate();
+            
+            // Arrêter la rotation automatique quand l'utilisateur interagit
+            document.querySelectorAll('.dish-card-3d, .dish-nav-btn, .dish-indicator').forEach(element => {
+                element.addEventListener('mouseenter', stopAutoRotate);
+                element.addEventListener('click', stopAutoRotate);
+                element.addEventListener('mouseleave', startAutoRotate);
+            });
         });
     </script>
 </body>
