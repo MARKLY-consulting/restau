@@ -3,803 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VitaPure | Santé & Bien-être Naturel</title>
+    <title>VITAPURE | L'Équilibre Moléculaire</title>
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- AOS Library pour animations -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+
     <style>
-        :root {
-            --primary: #3A8B8C;
-            --secondary: #FF9F43;
-            --accent: #6C5CE7;
-            --light: #F8F9FA;
-            --dark: #2D3436;
-            --success: #00B894;
-            --gradient: linear-gradient(135deg, #3A8B8C 0%, #6C5CE7 100%);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,600&family=Plus+Jakarta+Sans:wght@200;400;800&display=swap');
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; overflow: hidden; background: #FBFBF9; }
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
         
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--dark);
-            background-color: var(--light);
-            overflow-x: hidden;
-            cursor: none;
-        }
-        
-        h1, h2, h3, h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-        }
-        
-        /* Curseur personnalisé */
-        .custom-cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: rgba(58, 139, 140, 0.3);
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.2s ease;
-            mix-blend-mode: difference;
-        }
-        
-        .cursor-dot {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            background: var(--primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease;
-        }
-        
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 20px 0;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-        
-        .logo {
-            font-size: 2rem;
+        /* Texte géant évidé en arrière-plan */
+        .text-bg-outline {
+            -webkit-text-stroke: 1px rgba(26, 48, 43, 0.1);
+            color: transparent;
+            font-size: 25vw;
             font-weight: 900;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            line-height: 1;
+            letter-spacing: -0.05em;
         }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
+
+        /* Effet de grain premium */
+        .noise-filter {
+            position: fixed;
+            inset: 0;
+            z-index: 99;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
         }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            position: relative;
-            padding: 5px 0;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .cta-button {
-            background: var(--gradient);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(58, 139, 140, 0.3);
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(58, 139, 140, 0.4);
-        }
-        
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 120px 20px 80px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(58, 139, 140, 0.1) 0%, rgba(108, 92, 231, 0.1) 100%);
-            clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
-        }
-        
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-        }
-        
-        .hero-text h1 {
-            font-size: 4rem;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .hero-text p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.8;
-        }
-        
-        /* Animations de flottement */
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        /* Products Section */
-        .products {
-            padding: 100px 20px;
-            background: white;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-        
-        .products-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s ease;
-            position: relative;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-20px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
-        }
-        
-        .product-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--secondary);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .product-image {
-            height: 200px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-        }
-        
-        .product-image img {
-            max-width: 100%;
-            max-height: 100%;
-            transition: transform 0.5s ease;
-        }
-        
-        .product-card:hover .product-image img {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .product-info {
-            padding: 30px;
-        }
-        
-        .product-category {
-            color: var(--primary);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .product-price {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 15px 0;
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            padding: 100px 20px;
-            background: linear-gradient(135deg, rgba(58, 139, 140, 0.05) 0%, rgba(108, 92, 231, 0.05) 100%);
-        }
-        
-        .benefits-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-        
-        .benefit-card {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        }
-        
-        .benefit-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .benefit-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-            font-size: 2rem;
-            color: white;
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 20px;
-        }
-        
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .testimonial {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-            margin: 20px;
-            text-align: center;
-        }
-        
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 80px 20px 30px;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-column h3 {
-            color: white;
-            margin-bottom: 25px;
-            font-size: 1.5rem;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-icons a {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .social-icons a:hover {
-            background: var(--primary);
-            transform: translateY(-5px);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #999;
-        }
-        
-        /* Responsive */
-        @media (max-width: 992px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .hero-text h1 {
-                font-size: 3rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2.5rem;
-            }
+
+        .product-glow {
+            filter: drop-shadow(0 30px 50px rgba(26, 48, 43, 0.2));
         }
     </style>
 </head>
 <body>
-    <!-- Curseurs personnalisés -->
-    <div class="custom-cursor"></div>
-    <div class="cursor-dot"></div>
+    <div id="root"></div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-capsules"></i>
-                VitaPure
-            </div>
-            <ul class="nav-links">
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#produits">Produits</a></li>
-                <li><a href="#bienfaits">Bienfaits</a></li>
-                <li><a href="#avis">Avis</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <a href="#produits" class="cta-button">
-                <i class="fas fa-shopping-cart"></i>
-                Acheter maintenant
-            </a>
-        </div>
-    </nav>
+    <script type="text/babel">
+        const { useState } = React;
+        const { motion, AnimatePresence } = window.Motion;
 
-    <!-- Hero Section -->
-    <section class="hero" id="accueil">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <div class="hero-text" data-aos="fade-right" data-aos-duration="1000">
-                <h1>Votre Santé, Notre Priorité</h1>
-                <p>Découvrez notre gamme de vitamines et suppléments 100% naturels, scientifiquement formulés pour optimiser votre bien-être quotidien.</p>
-                <a href="#produits" class="cta-button">
-                    Découvrir nos produits
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-            <div class="hero-image" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
-                <div style="position: relative;">
-                    <img src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?q=80&w=1374&auto=format&fit=crop" 
-                         alt="Vitamines" 
-                         style="max-width: 100%; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.1);"
-                         class="floating">
-                    <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 10px 30px rgba(255,159,67,0.3);">
-                        -30%
+        const products = [
+            {
+                id: 'PURE',
+                name: 'Complexe Vitamine C+',
+                tagline: 'Immunité Cellulaire',
+                dosage: '1000mg / Jour',
+                benefit: 'Énergie & Synthèse de Collagène',
+                price: '34.00 €',
+                bg: '#FBFBF9', // Perle
+                text: 'text-[#1A302B]', // Vert Forêt
+                accent: 'bg-[#1A302B]',
+                img: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=1200&auto=format'
+            },
+            {
+                id: 'ZEN',
+                name: 'Magnésium Bisglycinate',
+                tagline: 'Sérénité Nerveuse',
+                dosage: '300mg / Soir',
+                benefit: 'Réduction du Stress & Sommeil Profond',
+                price: '28.00 €',
+                bg: '#1A302B', // Vert Sombre
+                text: 'text-[#FBFBF9]',
+                accent: 'bg-[#C5A059]', // Or
+                img: 'https://images.unsplash.com/photo-1616670811925-fa2aa0c5c70d?q=80&w=1200&auto=format'
+            },
+            {
+                id: 'GLOW',
+                name: 'Collagène Marin Type I',
+                tagline: 'Éclat Biologique',
+                dosage: '10g / Dose',
+                benefit: 'Élasticité de la peau & Hydratation',
+                price: '45.00 €',
+                bg: '#F4EAE6', // Rose Poudré
+                text: 'text-[#5E3023]', // Terre
+                accent: 'bg-[#5E3023]',
+                img: 'https://images.unsplash.com/photo-1626784215021-2e39ccf971cd?q=80&w=1200&auto=format'
+            }
+        ];
+
+        function App() {
+            const [index, setIndex] = useState(0);
+            const p = products[index];
+
+            return (
+                <div className="transition-colors duration-1000 min-h-screen relative overflow-hidden" style={{ backgroundColor: p.bg }}>
+                    <div className="noise-filter"></div>
+
+                    {/* Navigation */}
+                    <nav className={`flex justify-between items-center px-12 py-8 relative z-50 font-bold uppercase text-[10px] tracking-[0.4em] ${p.text}`}>
+                        <div className="text-2xl font-black tracking-tighter">VITAPURE<span className="opacity-40">.</span></div>
+                        <div className="hidden md:flex space-x-12 cursor-pointer">
+                            <span className="hover:opacity-50 transition-opacity">La Science</span>
+                            <span className="hover:opacity-50 transition-opacity">Laboratoire</span>
+                            <span className="hover:opacity-50 transition-opacity">Compte</span>
+                        </div>
+                        <div className="w-10 h-10 rounded-full border border-current flex items-center justify-center opacity-50 cursor-pointer">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                        </div>
+                    </nav>
+
+                    {/* Background Text */}
+                    <AnimatePresence mode="wait">
+                        <motion.div 
+                            key={p.id}
+                            initial={{ opacity: 0, y: 100 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -100 }}
+                            transition={{ duration: 0.8 }}
+                            className="absolute inset-0 flex items-center justify-center z-0"
+                        >
+                            <h1 className={`text-bg-outline select-none ${p.bg === '#1A302B' ? 'opacity-20' : ''}`} 
+                                style={{ WebkitTextStroke: `1px ${p.bg === '#1A302B' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}` }}>
+                                {p.id}
+                            </h1>
+                        </motion.div>
+                    </AnimatePresence>
+
+                    {/* Corner Information Layout */}
+                    <div className={`absolute inset-0 z-20 pointer-events-none p-16 ${p.text}`}>
+                        
+                        {/* Top Left: Claim */}
+                        <motion.div 
+                            key={index + "1"}
+                            initial={{ x: -50, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
+                            className="absolute top-40 left-20 border-l border-current pl-6"
+                        >
+                            <p className="text-[9px] font-black uppercase tracking-[0.3em] opacity-40 mb-2">Promesse</p>
+                            <p className="text-xl font-serif italic max-w-[200px] leading-tight">{p.tagline}</p>
+                        </motion.div>
+
+                        {/* Top Right: Dosage */}
+                        <motion.div 
+                            key={index + "2"}
+                            initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
+                            className="absolute top-40 right-20 text-right border-r border-current pr-6"
+                        >
+                            <p className="text-[9px] font-black uppercase tracking-[0.3em] opacity-40 mb-2">Recommandation</p>
+                            <p className="text-xl font-serif italic">{p.dosage}</p>
+                        </motion.div>
+
+                        {/* Bottom Left: Price */}
+                        <motion.div 
+                            key={index + "3"}
+                            initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+                            className="absolute bottom-40 left-20"
+                        >
+                            <p className="text-[9px] font-black uppercase tracking-[0.3em] opacity-40 mb-2">Prix unitaire</p>
+                            <p className="text-5xl font-light tracking-tighter italic">{p.price}</p>
+                        </motion.div>
+
+                        {/* Bottom Right: Benefit */}
+                        <motion.div 
+                            key={index + "4"}
+                            initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+                            className="absolute bottom-40 right-20 text-right"
+                        >
+                            <p className="text-[9px] font-black uppercase tracking-[0.3em] opacity-40 mb-2">Bénéfices</p>
+                            <p className="text-lg font-bold max-w-[250px] leading-tight uppercase tracking-tighter">{p.benefit}</p>
+                        </motion.div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Products Section -->
-    <section class="products" id="produits">
-        <div class="section-title" data-aos="fade-up">
-            <h2>Nos Produits Phares</h2>
-            <p>Des formules avancées pour des résultats optimaux</p>
-        </div>
-        
-        <div class="products-grid">
-            <!-- Produit 1 -->
-            <div class="product-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="product-badge">Bestseller</div>
-                <div class="product-image" style="background: linear-gradient(135deg, #E3F2FD 0%, #E8F5E9 100%);">
-                    <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=1374&auto=format&fit=crop" 
-                         alt="Multivitamines">
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Multivitamines</span>
-                    <h3>Complexe Vitamine Ultra</h3>
-                    <p>Formule complète avec 25 vitamines et minéraux essentiels pour une santé optimale.</p>
-                    <div class="product-price">29,90€</div>
-                    <button class="cta-button" style="width: 100%; justify-content: center; margin-top: 15px;">
-                        <i class="fas fa-cart-plus"></i>
-                        Ajouter au panier
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Produit 2 -->
-            <div class="product-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="product-badge" style="background: var(--accent);">Nouveau</div>
-                <div class="product-image" style="background: linear-gradient(135deg, #FFF3E0 0%, #FFEBEE 100%);">
-                    <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1374&auto=format&fit=crop" 
-                         alt="Vitamine D3">
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Vitamine D</span>
-                    <h3>Vitamine D3 Boost</h3>
-                    <p>Haute concentration de vitamine D3 pour le système immunitaire et la santé osseuse.</p>
-                    <div class="product-price">24,90€</div>
-                    <button class="cta-button" style="width: 100%; justify-content: center; margin-top: 15px;">
-                        <i class="fas fa-cart-plus"></i>
-                        Ajouter au panier
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Produit 3 -->
-            <div class="product-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="product-badge" style="background: var(--success);">Populaire</div>
-                <div class="product-image" style="background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1374&auto=format&fit=crop" 
-                         alt="Oméga 3">
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Oméga 3</span>
-                    <h3>Oméga 3 Pure</h3>
-                    <p>Acides gras essentiels purifiés pour la santé cardiaque et cognitive.</p>
-                    <div class="product-price">34,90€</div>
-                    <button class="cta-button" style="width: 100%; justify-content: center; margin-top: 15px;">
-                        <i class="fas fa-cart-plus"></i>
-                        Ajouter au panier
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
+                    {/* Central Product Image */}
+                    <div className="relative z-10 w-full h-screen flex items-center justify-center">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, scale: 0.7, y: 50 }}
+                                animate={{ opacity: 1, scale: 1, y: [0, -25, 0] }}
+                                exit={{ opacity: 0, scale: 1.3, y: -50 }}
+                                transition={{ 
+                                    y: { repeat: Infinity, duration: 5, ease: "easeInOut" },
+                                    duration: 0.8
+                                }}
+                                className="w-[300px] h-[450px] md:w-[380px] md:h-[550px] rounded-[100px] overflow-hidden shadow-2xl product-glow border-[15px] border-white/10"
+                            >
+                                <img src={p.img} className="w-full h-full object-cover" />
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
 
-    <!-- Benefits Section -->
-    <section class="benefits" id="bienfaits">
-        <div class="section-title" data-aos="fade-up">
-            <h2>Nos Engagements</h2>
-            <p>Pourquoi choisir VitaPure ?</p>
-        </div>
-        
-        <div class="benefits-grid">
-            <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="benefit-icon">
-                    <i class="fas fa-leaf"></i>
-                </div>
-                <h3>100% Naturel</h3>
-                <p>Ingrédients naturels et bio, sans additifs artificiels ni conservateurs.</p>
-            </div>
-            
-            <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="benefit-icon">
-                    <i class="fas fa-flask"></i>
-                </div>
-                <h3>Science Avancée</h3>
-                <p>Formules développées avec des experts en nutrition et santé.</p>
-            </div>
-            
-            <div class="benefit-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="benefit-icon">
-                    <i class="fas fa-award"></i>
-                </div>
-                <h3>Qualité Certifiée</h3>
-                <p>Produits testés en laboratoire et certifiés GMP.</p>
-            </div>
-            
-            <div class="benefit-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="benefit-icon">
-                    <i class="fas fa-shipping-fast"></i>
-                </div>
-                <h3>Livraison Rapide</h3>
-                <p>Expédition sous 24h et livraison gratuite dès 50€ d'achat.</p>
-            </div>
-        </div>
-    </section>
+                    {/* UI Controls */}
+                    <div className="absolute bottom-10 left-0 w-full flex flex-col items-center space-y-8 z-50">
+                        <motion.button 
+                            whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                            className={`px-16 py-5 rounded-full font-black uppercase tracking-[0.3em] text-[10px] shadow-2xl transition-all ${p.accent} ${p.bg === '#1A302B' ? 'text-white' : 'text-white'}`}
+                        >
+                            Optimiser ma santé
+                        </motion.button>
+                        
+                        <div className={`flex items-center space-x-12 ${p.text}`}>
+                            <button onClick={() => setIndex((index - 1 + products.length) % products.length)} className="opacity-30 hover:opacity-100 transition-opacity">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="m15 18-6-6 6-6"/></svg>
+                            </button>
+                            <span className="text-xs font-black tracking-widest">{index + 1} / {products.length}</span>
+                            <button onClick={() => setIndex((index + 1) % products.length)} className="opacity-30 hover:opacity-100 transition-opacity">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="m9 18 6-6 6-6"/></svg>
+                            </button>
+                        </div>
+                    </div>
 
-    <!-- Testimonials -->
-    <section class="testimonials" id="avis">
-        <div class="section-title" data-aos="fade-up">
-            <h2>Témoignages</h2>
-            <p>Ce que nos clients disent de nous</p>
-        </div>
-        
-        <div class="testimonial-slider">
-            <div class="testimonial" data-aos="fade-up" data-aos-delay="100">
-                <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--gradient); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
-                    <i class="fas fa-user"></i>
                 </div>
-                <p>"Après 3 mois de prise des multivitamines, j'ai retrouvé une énergie incroyable !"</p>
-                <div style="margin-top: 20px; color: var(--primary); font-weight: bold;">Marie L.</div>
-                <div style="color: var(--secondary);">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-            </div>
-        </div>
-    </section>
+            );
+        }
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>VitaPure</h3>
-                <p>Votre partenaire santé pour une vie plus équilibrée et énergique.</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Produits</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Multivitamines</a></li>
-                    <li><a href="#">Vitamine D</a></li>
-                    <li><a href="#">Oméga 3</a></li>
-                    <li><a href="#">Probiotiques</a></li>
-                    <li><a href="#">Protéines</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Contact</h3>
-                <ul class="footer-links">
-                    <li><i class="fas fa-map-marker-alt"></i> 123 Rue de la Santé, Paris</li>
-                    <li><i class="fas fa-phone"></i> 01 23 45 67 89</li>
-                    <li><i class="fas fa-envelope"></i> contact@vitapure.com</li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Newsletter</h3>
-                <p>Inscrivez-vous pour recevoir nos offres exclusives</p>
-                <div style="margin-top: 20px;">
-                    <input type="email" placeholder="Votre email" style="width: 100%; padding: 12px; border-radius: 5px; border: none; margin-bottom: 10px;">
-                    <button class="cta-button" style="width: 100%; justify-content: center;">S'abonner</button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="copyright">
-            <p>&copy; 2024 VitaPure. Tous droits réservés.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Initialiser AOS (Animate On Scroll)
-        AOS.init({
-            duration: 1000,
-            once: false,
-            offset: 100
-        });
-        
-        // Curseur personnalisé
-        const cursor = document.querySelector('.custom-cursor');
-        const cursorDot = document.querySelector('.cursor-dot');
-        
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            cursorDot.style.left = e.clientX + 'px';
-            cursorDot.style.top = e.clientY + 'px';
-        });
-        
-        // Effet au survol des éléments interactifs
-        const interactiveElements = document.querySelectorAll('button, a, .product-card, .benefit-card');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'scale(1.5)';
-                cursor.style.background = 'rgba(58, 139, 140, 0.5)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'scale(1)';
-                cursor.style.background = 'rgba(58, 139, 140, 0.3)';
-            });
-        });
-        
-        // Animation au scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, observerOptions);
-        
-        // Observer tous les éléments avec data-aos
-        document.querySelectorAll('[data-aos]').forEach(el => {
-            observer.observe(el);
-        });
-        
-        // Animation des cartes de produits
-        const productCards = document.querySelectorAll('.product-card');
-        productCards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-20px)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
-        
-        // Smooth scroll pour les ancres
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Animation du titre
-        const heroTitle = document.querySelector('.hero-text h1');
-        heroTitle.innerHTML = heroTitle.textContent.split('').map(letter => 
-            `<span style="display: inline-block; transition: transform 0.3s ease;">${letter}</span>`
-        ).join('');
-        
-        const letters = heroTitle.querySelectorAll('span');
-        heroTitle.addEventListener('mouseenter', () => {
-            letters.forEach((letter, index) => {
-                setTimeout(() => {
-                    letter.style.transform = 'translateY(-10px)';
-                }, index * 30);
-            });
-        });
-        
-        heroTitle.addEventListener('mouseleave', () => {
-            letters.forEach((letter, index) => {
-                setTimeout(() => {
-                    letter.style.transform = 'translateY(0)';
-                }, index * 30);
-            });
-        });
-        
-        // Effet parallaxe
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.hero-bg, .floating');
-            
-            parallaxElements.forEach(el => {
-                const speed = el.classList.contains('hero-bg') ? 0.5 : 0.3;
-                el.style.transform = `translateY(${scrolled * speed}px)`;
-            });
-        });
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
